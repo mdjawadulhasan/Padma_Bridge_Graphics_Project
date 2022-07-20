@@ -24,8 +24,15 @@ GLfloat rboatpos=0.0f;
 GLfloat lboatspeed=0.01f;
 GLfloat rboatspeed=0.01f;
 
+GLfloat pinakposition=0.0f;
+GLfloat pinakspeed=0.005f;
+
+
 int night =false;
 int bridge =false;
+int sank=false;
+int pinak=false;
+int thunderstorm=false;
 
 void updatesun(int value) {
 
@@ -76,7 +83,6 @@ void runleftboat(int value){
 
 glutPostRedisplay();
 glutTimerFunc(100, runleftboat, 0);
-cout<<lboatpos<<endl;
 
 }
 
@@ -91,8 +97,39 @@ void runrightboat(int value){
 glutPostRedisplay();
 glutTimerFunc(100, runrightboat, 0);
 
+}
+
+void pinakupdate(int value){
+    if(pinakposition>0.9){
+        pinakspeed=0.001f;
+        thunderstorm=true;
+    }
+
+     if(pinakposition <=1.0f)
+       {
+            pinakposition += pinakspeed;
+       }
+        if(pinakposition>=1.0f){
+                sank=true;
+                pinak=false;
+            }
+
+
+glutPostRedisplay();
+glutTimerFunc(100, pinakupdate, 0);
 
 }
+
+
+void pinaksank(int value){
+     pinak=true;
+
+glutPostRedisplay();
+glutTimerFunc(100, pinakupdate, 0);
+pinak=false;
+}
+
+
 
 void sun(float p, float q,float r)
 {
@@ -198,11 +235,11 @@ void drawQuadsForCloud(float x1,float y1,float x2,float y2,float x3,float y3,flo
     glEnd ();
 
 }
-void DrawSky(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4)
+void DrawSky(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4,int a,int b,int c)
 {
 
 glBegin(GL_QUADS);
-    glColor3ub(82, 192, 191);
+    glColor3ub(a,b,c);
     glVertex2f(x1, y1);
     glVertex2f(x2, y2);
     glVertex2f(x3, y3);
@@ -378,18 +415,72 @@ void keyboard(unsigned char key, int x, int y) {
         bridge=true;
         glutPostRedisplay();
     }
+    if(key=='p'){
+        pinak=true;
+        glutPostRedisplay();
+    }
 
 
 
 }
 
-void Bridge(){
+void bridgespanpiller(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4){
+
 glBegin(GL_QUADS);
 glColor3ub(105,105,105);
-glVertex2f(-1.0f,0.0f);
+glVertex2f(x1,y1);
+glVertex2f(x2,y2);
+glVertex2f(x3,y3);
+glVertex2f(x4,y4);
+glEnd();
+
+}
+
+void bridgeLight(){
+        glLineWidth(4); //line in boat 1
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.9f, 0.2f);
+        glVertex2f(-0.9f, 0.4f);
+        glEnd();
+
+        glLineWidth(4); //line in boat 1
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.9f,  0.4f);
+        glVertex2f(-0.88f, 0.4f);
+        glEnd();
+
+        glLineWidth(4); //line in boat 1
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.85f, 0.2f);
+        glVertex2f(-0.85f, 0.4f);
+        glEnd();
+
+        glLineWidth(4); //line in boat 1
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.85f,  0.4f);
+        glVertex2f(-0.87f, 0.4f);
+        glEnd();
+}
+
+void Bridge(){
+
+
+
+glBegin(GL_QUADS);
+glColor3ub(105,105,105);
+glVertex2f(-1.0f,-0.05f);
+glVertex2f(1.0f,-0.05f);
 glVertex2f(1.0f,0.0f);
-glVertex2f(1.0f,0.05f);
-glVertex2f(-1.0f,0.05f);
+glVertex2f(-1.0f,0.0f);
+
+
+
+
+
 glEnd();
 glBegin(GL_QUADS);
 glColor3ub(105,105,105);
@@ -446,8 +537,193 @@ glVertex2f(0.4f,-0.22f);
 glVertex2f(0.4f,-0.15f);
 glVertex2f(0.6f,-0.15f);
 glEnd();
-}
 
+
+
+bridgespanpiller(-0.8f,0.0f,-0.7f,0.0f,-0.9f,0.2f,-1.0f,0.2f);
+bridgespanpiller(-0.7f,0.0f,-0.6f,0.0f,-0.4f,0.2f,-0.5f,0.2f);
+
+glPushMatrix();
+glTranslatef(0.5,0.0f,0.0f);
+bridgespanpiller(-0.8f,0.0f,-0.7f,0.0f,-0.9f,0.2f,-1.0f,0.2f);
+bridgespanpiller(-0.7f,0.0f,-0.6f,0.0f,-0.4f,0.2f,-0.5f,0.2f);
+glPopMatrix();
+
+
+glPushMatrix();
+glTranslatef(1.0f,0.0f,0.0f);
+bridgespanpiller(-0.8f,0.0f,-0.7f,0.0f,-0.9f,0.2f,-1.0f,0.2f);
+bridgespanpiller(-0.7f,0.0f,-0.6f,0.0f,-0.4f,0.2f,-0.5f,0.2f);
+glPopMatrix();
+
+glPushMatrix();
+glTranslatef(1.5f,0.0f,0.0f);
+bridgespanpiller(-0.8f,0.0f,-0.7f,0.0f,-0.9f,0.2f,-1.0f,0.2f);
+bridgespanpiller(-0.7f,0.0f,-0.6f,0.0f,-0.4f,0.2f,-0.5f,0.2f);
+glPopMatrix();
+
+
+bridgeLight();
+glPushMatrix();
+glTranslatef(0.4f,0.0f,0.0f);
+bridgeLight();
+glPopMatrix();
+
+glPushMatrix();
+glTranslatef(0.8f,0.0f,0.0f);
+bridgeLight();
+glPopMatrix();
+
+
+glPushMatrix();
+glTranslatef(1.2f,0.0f,0.0f);
+bridgeLight();
+glPopMatrix();
+
+glPushMatrix();
+glTranslatef(1.6f,0.0f,0.0f);
+bridgeLight();
+glPopMatrix();
+
+
+
+}
+void drawBigBoat()
+{
+     drawRiverElipsis(-0.88f,-0.65f,0.16f,0.015f);
+         glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(142, 35, 35);
+            glVertex2f(-0.98f, -0.65f);
+            glVertex2f(-0.8f, -0.65f);
+            glVertex2f(-0.76f, -0.55f);
+            glVertex2f(-0.98f, -0.55f);
+            glEnd();
+            //91, 51, 22
+
+              glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(0, 0, 0);
+            glVertex2f(-0.98f, -0.65f);
+            glVertex2f(-0.8f, -0.65f);
+            glVertex2f(-0.79f, -0.6255f);
+            glVertex2f(-0.98f, -0.6255f);
+            glEnd();
+
+            glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(91, 51, 22);
+            glVertex2f(-0.98f, -0.55f);
+            glVertex2f(-0.76f, -0.55f);
+            glVertex2f(-0.76f, -0.535f);
+            glVertex2f(-0.98f, -0.535f);
+            glEnd();
+
+//boat windows
+               glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(191, 216, 249);
+            glVertex2f(-0.96f, -0.61f);
+            glVertex2f(-0.93f, -0.61f);
+            glVertex2f(-0.93f, -0.57f);
+            glVertex2f(-0.96f, -0.57f);
+            glEnd();
+
+
+            glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(191, 216, 249);
+            glVertex2f(-0.91f, -0.61f);
+            glVertex2f(-0.88f, -0.61f);
+            glVertex2f(-0.88f, -0.57f);
+            glVertex2f(-0.91f, -0.57f);
+            glEnd();
+
+            glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(191, 216, 249);
+            glVertex2f(-0.86f, -0.61f);
+            glVertex2f(-0.83f, -0.61f);
+            glVertex2f(-0.83f, -0.57f);
+            glVertex2f(-0.86f, -0.57f);
+            glEnd();
+
+//  mid part
+
+  glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(84, 83, 84);
+            glVertex2f(-0.98f, -0.535f);
+            glVertex2f(-0.81f, -0.535f);
+            glVertex2f(-0.81f, -0.482f);
+            glVertex2f(-0.98f, -0.482f);
+            glEnd();
+
+   // mid part windows
+   //1
+    glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(191, 216, 216);
+            glVertex2f(-0.94f, -0.53f);
+            glVertex2f(-0.92f, -0.53f);
+            glVertex2f(-0.92f, -0.5f);
+            glVertex2f(-0.94f, -0.5f);
+            glEnd();
+
+            //2
+             glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(191, 216, 216);
+            glVertex2f(-0.90f, -0.53f);
+            glVertex2f(-0.88f, -0.53f);
+            glVertex2f(-0.88f, -0.5f);
+            glVertex2f(-0.9f, -0.5f);
+            glEnd();
+//3
+   glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(191, 216, 216);
+            glVertex2f(-0.86f, -0.53f);
+            glVertex2f(-0.84f, -0.53f);
+            glVertex2f(-0.84f, -0.5f);
+            glVertex2f(-0.86f, -0.5f);
+            glEnd();
+// top part in boat
+
+  glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(91, 51, 22);
+            glVertex2f(-0.97f, -0.482f);
+            glVertex2f(-0.82f, -0.482);
+            glVertex2f(-0.84f, -0.46f);
+            glVertex2f(-0.95f, -0.46f);
+            glEnd();
+
+    // top most part dua
+
+  glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(0, 0, 0);
+            glVertex2f(-0.925f, -0.46f);
+            glVertex2f(-0.905f, -0.46);
+            glVertex2f(-0.905f, -0.43f);
+            glVertex2f(-0.925f, -0.43f);
+            glEnd();
+//red
+    glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(255, 0, 0);
+            glVertex2f(-0.925f, -0.43f);
+            glVertex2f(-0.905f, -0.43);
+            glVertex2f(-0.905f, -0.422f);
+            glVertex2f(-0.925f, -0.422f);
+            glEnd();
+
+             glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(0, 0, 0);
+            glVertex2f(-0.89f, -0.46f);
+            glVertex2f(-0.87f, -0.46);
+            glVertex2f(-0.87f, -0.43f);
+            glVertex2f(-0.89f, -0.43f);
+            glEnd();
+//red
+    glBegin(GL_TRIANGLE_FAN);
+            glColor3ub(255, 0, 0);
+            glVertex2f(-0.89f, -0.43f);
+            glVertex2f(-0.87f, -0.43f);
+            glVertex2f(-0.87f, -0.422f);
+            glVertex2f(-0.89f, -0.422f);
+            glEnd();
+
+
+}
 
 void drawBoat()
 {
@@ -573,17 +849,30 @@ void display()
 {
 
 glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f);
+
 DrawRiver(-1.0f, -1.0f,1.0f, -1.0f,1.0f, -0.20f,-1.0f, -0.20f);
-
+if(!thunderstorm){
+    DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f,82, 192, 191);
+}
+else{
+   // DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f,0,0,0);
+}
 cloud();
-
 drawBoat();
+Bridge();
+hill();
 
-          if(bridge){
-              Bridge();
-          }
- hill();
+
+if(pinak){
+glPushMatrix();
+glTranslatef(pinakposition,0.0f,0.0f);
+drawBigBoat();
+glPopMatrix();
+}
+if(sank){
+
+   } //
+
 
             glFlush();
 
@@ -604,7 +893,7 @@ int main(int argc, char** argv)
     glutTimerFunc(100, updatesun, 0);
     glutTimerFunc(200, runrightboat, 0);
     glutTimerFunc(100, runleftboat, 0);
-
+    glutTimerFunc(100, pinakupdate, 0);
     glutMainLoop();
     return 0;
 }
