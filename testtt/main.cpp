@@ -1,4 +1,4 @@
- #include<windows.h>
+#include<windows.h>
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -18,7 +18,11 @@ GLfloat cloudspeed1 = 0.01f;
 GLfloat sunposition=0.0f;
 GLfloat sunspeed = 0.02f;
 
+GLfloat lboatpos=0.0f;
+GLfloat rboatpos=0.0f;
 
+GLfloat lboatspeed=0.01f;
+GLfloat rboatspeed=0.01f;
 
 int night =false;
 int bridge =false;
@@ -62,7 +66,33 @@ glutPostRedisplay();
 glutTimerFunc(100, updatecloudone, 0);
 }
 
+void runleftboat(int value){
+     if(lboatpos >=1.92)
+       {
+            lboatpos = (-1.0f);
+       }
 
+    lboatpos += lboatspeed;
+
+glutPostRedisplay();
+glutTimerFunc(100, runleftboat, 0);
+cout<<lboatpos<<endl;
+
+}
+
+void runrightboat(int value){
+     if(rboatpos <-1.92)
+       {
+            rboatpos = 1.0f;
+       }
+
+    rboatpos -= rboatspeed;
+
+glutPostRedisplay();
+glutTimerFunc(100, runrightboat, 0);
+
+
+}
 
 void sun(float p, float q,float r)
 {
@@ -136,7 +166,27 @@ void cloud(float p, float q,float r)
 
 }
 
+void drawRiverElipsis(GLfloat x, GLfloat y, GLfloat width,
+                              GLfloat height)
+  {
+  int i;
+  int triangleAmount = 255;
+  glPushMatrix();
+  glTranslatef(x, y, 0);
+  glPushMatrix();
+  glScalef(width, height, 0);
+  glBegin(GL_TRIANGLE_FAN);
+   glColor3ub(35, 138, 141);
 
+  glVertex2f(0, 0);
+  for (i = 0; i <= triangleAmount; i++) {
+    glVertex2f((1 * cos(i * PI2 / triangleAmount)),
+               (1 * sin(i * PI2 / triangleAmount)));
+  }
+  glEnd();
+  glPopMatrix();
+  glPopMatrix();
+}
 void drawQuadsForCloud(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4)
 {
  glBegin(GL_QUADS);
@@ -162,7 +212,7 @@ glBegin(GL_QUADS);
 
 glPushMatrix();
 glTranslatef(0.0f,sunposition,0.0f);
-sun(-0.47f,0.86f,0.08f);
+sun(-0.20f,0.86f,0.08f);
 glPopMatrix();
 
 
@@ -228,7 +278,7 @@ void hill()
 
 
             glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(135, 125, 117);
+            glColor3ub(192,192,192);
             glVertex2f(-0.77f, -0.22);
             glVertex2f(-0.65f, -0.22f);
             glVertex2f(-0.7f, 0.005f);
@@ -236,7 +286,7 @@ void hill()
             glEnd();
 
             glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(135, 125, 117);
+            glColor3ub(192,192,192);
             glVertex2f(-0.75f, -0.22);
             glVertex2f(-0.5f, -0.22f);
             glVertex2f(-0.6f, -0.09f);
@@ -245,7 +295,7 @@ void hill()
 
 
            glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(135, 125, 117);
+            glColor3ub(192,192,192);
             glVertex2f(-0.9f, -0.22);
             glVertex2f(-0.7f, -0.22f);
             glVertex2f(-0.8f, -0.03f);
@@ -253,7 +303,7 @@ void hill()
             glEnd();
 
             glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(135, 125, 117);
+            glColor3ub(192,192,192);
             glVertex2f(-1.055f, -0.22);
             glVertex2f(-0.8f, -0.22f);
             glVertex2f(-0.9f, 0.06f);
@@ -264,7 +314,7 @@ void hill()
 
 
             glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(135, 125, 117);
+            glColor3ub(192,192,192);
             glVertex2f(0.75f, -0.22);
             glVertex2f(0.5f, -0.22f);
             glVertex2f(0.6f, -0.09f);
@@ -273,7 +323,7 @@ void hill()
 
 
            glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(135, 125, 117);
+             glColor3ub(192,192,192);
             glVertex2f(0.9f, -0.22);
             glVertex2f(0.7f, -0.22f);
             glVertex2f(0.8f, -0.03f);
@@ -281,7 +331,7 @@ void hill()
             glEnd();
 
             glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(135, 125, 117);
+           glColor3ub(192,192,192);
             glVertex2f(1.1f, -0.22);
             glVertex2f(0.8f, -0.22f);
             glVertex2f(0.9f, 0.06f);
@@ -301,7 +351,12 @@ void DrawRiver(float x1,float y1,float x2,float y2,float x3,float y3,float x4,fl
     glVertex2f(x3, y3);
     glVertex2f(x4, y4);
       glEnd ();
-     // drawBoat();
+
+drawRiverElipsis(0.1f,-0.270f,0.16f,0.015f);
+drawRiverElipsis(-0.4f,-0.560f,0.25f,0.020f);
+drawRiverElipsis(0.4f,-0.760f,0.25f,0.015f);
+drawRiverElipsis(0.7f,-0.360f,0.15f,0.01f);
+
 
 
 }
@@ -330,14 +385,14 @@ void keyboard(unsigned char key, int x, int y) {
 
 void Bridge(){
 glBegin(GL_QUADS);
-glColor3ub(0,0,0);
+glColor3ub(105,105,105);
 glVertex2f(-1.0f,0.0f);
 glVertex2f(1.0f,0.0f);
 glVertex2f(1.0f,0.05f);
 glVertex2f(-1.0f,0.05f);
 glEnd();
 glBegin(GL_QUADS);
-glColor3ub(0,0,0);
+glColor3ub(105,105,105);
 glVertex2f(-1.0f,0.2f);
 glVertex2f(1.0f,0.2f);
 glVertex2f(1.0f,0.25f);
@@ -352,7 +407,7 @@ glFlush();
 
 
 glBegin(GL_QUADS);
-glColor3ub(0,0,0);
+glColor3ub(105,105,105);
 glVertex2f(-0.55f,-0.2f);
 glVertex2f(-0.45f,-0.2f);
 glVertex2f(-0.45f,0.0f);
@@ -362,7 +417,7 @@ glEnd();
 
 
 glBegin(GL_QUADS);
-glColor3ub(0,0,0);
+glColor3ub(105,105,105);
 glVertex2f(0.55f,-0.2f);
 glVertex2f(0.45f,-0.2f);
 glVertex2f(0.45f,0.0f);
@@ -373,7 +428,7 @@ glEnd();
 
 
 glBegin(GL_QUADS);
-glColor3ub(0,0,0);
+glColor3ub(105,105,105);
 glVertex2f(-0.6f,-0.22f);
 glVertex2f(-0.4f,-0.22f);
 glVertex2f(-0.4f,-0.15f);
@@ -385,7 +440,7 @@ glFlush();
 
 
 glBegin(GL_QUADS);
-glColor3ub(0,0,0);
+glColor3ub(105,105,105);
 glVertex2f(0.6f,-0.22f);
 glVertex2f(0.4f,-0.22f);
 glVertex2f(0.4f,-0.15f);
@@ -393,9 +448,20 @@ glVertex2f(0.6f,-0.15f);
 glEnd();
 }
 
+
 void drawBoat()
 {
-            glBegin(GL_TRIANGLE_FAN); //  left up in boat 1
+
+
+glPushMatrix();
+glTranslatef(lboatpos,0.0f,0.0f);
+
+
+drawRiverElipsis(-0.88f,-0.35f,0.11f,0.015f);
+drawRiverElipsis(-0.83f,-0.850f,0.11f,0.015f);
+
+
+        glBegin(GL_TRIANGLE_FAN); //  left up in boat 1
             glColor3ub(255, 255, 255);
             glVertex2f(-0.92f, -0.35f);
             glVertex2f(-0.82f, -0.35f);
@@ -426,8 +492,47 @@ void drawBoat()
           glVertex2f(-0.88f, -0.23f);
           glEnd();
 
-          // right mid boat 2
 
+          //Down Left Boat
+
+           glBegin(GL_TRIANGLE_FAN); //  left down in boat 1
+            glColor3ub(255, 255, 255);
+            glVertex2f(-0.88f, -0.85f);
+            glVertex2f(-0.78f, -0.85f);
+            glVertex2f(-0.73f, -0.80f);
+            glVertex2f(-0.93f, -0.80f);
+            glEnd();
+
+
+        glLineWidth(8); //line in boat 1
+        glBegin(GL_LINES);
+        glColor3ub(255, 255, 255);
+        glVertex2f(-0.86f, -0.79f);
+        glVertex2f(-0.86f, -0.73f);
+        glEnd();
+
+         glBegin(GL_LINES);
+        glColor3ub(255, 255, 255);
+        glVertex2f(-0.88f, -0.79f);
+        glVertex2f(-0.88f, -0.73f);
+        glEnd();
+
+          glBegin(GL_TRIANGLE_FAN);  //boat 1 right pall
+          glColor3ub(255, 255, 255);
+          glVertex2f(-0.848f, -0.79f);
+          glVertex2f(-0.72f, -0.79f);
+          glVertex2f(-0.848f,-0.72f);
+          glEnd();
+
+
+
+glPopMatrix();
+
+
+glPushMatrix();
+glTranslatef(rboatpos,0.0f,0.0f);
+          // right mid boat 2
+drawRiverElipsis(0.85f,-0.550f,0.11f,0.015f);
 
           glBegin(GL_TRIANGLE_FAN); // right mid in boat 2
             glColor3ub(255, 255, 255);
@@ -460,45 +565,7 @@ void drawBoat()
           glVertex2f(0.88f, -0.43f);
           glEnd();
 
-
-          //boat 3
-
-    //left down boat
-
-
-       glBegin(GL_TRIANGLE_FAN); //  left up in boat 1
-            glColor3ub(255, 255, 255);
-            glVertex2f(-0.88f, -0.85f);
-            glVertex2f(-0.78f, -0.85f);
-            glVertex2f(-0.73f, -0.80f);
-            glVertex2f(-0.93f, -0.80f);
-            glEnd();
-
-
-        glLineWidth(8); //line in boat 1
-        glBegin(GL_LINES);
-        glColor3ub(255, 255, 255);
-        glVertex2f(-0.83f, -0.79f);
-        glVertex2f(-0.83f, -0.73f);
-        glEnd();
-
-          glBegin(GL_TRIANGLE_FAN);  //boat 1 right pall
-          glColor3ub(255, 255, 255);
-          glVertex2f(-0.82f, -0.79f);
-          glVertex2f(-0.76f, -0.79f);
-          glVertex2f(-0.82f, -0.74f);
-          glEnd();
-
-
-          glBegin(GL_TRIANGLE_FAN);  ////boat 1 left pall
-          glColor3ub(255, 255, 255);
-          glVertex2f(-0.88f, -0.79f);
-          glVertex2f(-0.84f, -0.79f);
-          glVertex2f(-0.84f, -0.73f);
-          glEnd();
-
-
-          //small boat left
+glPopMatrix();
 
 }
 
@@ -512,12 +579,14 @@ DrawRiver(-1.0f, -1.0f,1.0f, -1.0f,1.0f, -0.20f,-1.0f, -0.20f);
 cloud();
 
 drawBoat();
- hill();
+
           if(bridge){
               Bridge();
           }
+ hill();
 
             glFlush();
+
 }
 
 
@@ -533,6 +602,8 @@ int main(int argc, char** argv)
     glutKeyboardFunc(keyboard);
     glutTimerFunc(100, updatecloudone, 0);
     glutTimerFunc(100, updatesun, 0);
+    glutTimerFunc(200, runrightboat, 0);
+    glutTimerFunc(100, runleftboat, 0);
 
     glutMainLoop();
     return 0;
