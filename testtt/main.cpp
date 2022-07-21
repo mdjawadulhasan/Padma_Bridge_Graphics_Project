@@ -83,6 +83,7 @@ void runleftboat(int value){
 
 glutPostRedisplay();
 glutTimerFunc(100, runleftboat, 0);
+cout<<lboatpos<<endl;
 
 }
 
@@ -96,6 +97,7 @@ void runrightboat(int value){
 
 glutPostRedisplay();
 glutTimerFunc(100, runrightboat, 0);
+
 
 }
 
@@ -128,7 +130,6 @@ glutPostRedisplay();
 glutTimerFunc(100, pinakupdate, 0);
 pinak=false;
 }
-
 
 
 void sun(float p, float q,float r)
@@ -235,11 +236,11 @@ void drawQuadsForCloud(float x1,float y1,float x2,float y2,float x3,float y3,flo
     glEnd ();
 
 }
-void DrawSky(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4,int a,int b,int c)
+void DrawSky(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4)
 {
 
 glBegin(GL_QUADS);
-    glColor3ub(a,b,c);
+    glColor3ub(82, 192, 191);
     glVertex2f(x1, y1);
     glVertex2f(x2, y2);
     glVertex2f(x3, y3);
@@ -415,6 +416,7 @@ void keyboard(unsigned char key, int x, int y) {
         bridge=true;
         glutPostRedisplay();
     }
+
     if(key=='p'){
         pinak=true;
         glutPostRedisplay();
@@ -423,7 +425,6 @@ void keyboard(unsigned char key, int x, int y) {
 
 
 }
-
 void bridgespanpiller(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4){
 
 glBegin(GL_QUADS);
@@ -724,7 +725,6 @@ void drawBigBoat()
 
 
 }
-
 void drawBoat()
 {
 
@@ -849,14 +849,8 @@ void display()
 {
 
 glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-
+DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f);
 DrawRiver(-1.0f, -1.0f,1.0f, -1.0f,1.0f, -0.20f,-1.0f, -0.20f);
-if(!thunderstorm){
-    DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f,82, 192, 191);
-}
-else{
-   // DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f,0,0,0);
-}
 cloud();
 drawBoat();
 Bridge();
@@ -874,6 +868,7 @@ if(sank){
    } //
 
 
+            glFlush();
             glFlush();
 
 }
@@ -893,7 +888,7 @@ int main(int argc, char** argv)
     glutTimerFunc(100, updatesun, 0);
     glutTimerFunc(200, runrightboat, 0);
     glutTimerFunc(100, runleftboat, 0);
-    glutTimerFunc(100, pinakupdate, 0);
+glutTimerFunc(100, pinakupdate, 0);
     glutMainLoop();
     return 0;
 }
