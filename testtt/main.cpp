@@ -40,22 +40,22 @@ GLfloat Helicopterposition=0.0f;
 GLfloat Helicopterspeed=0.005f;
 
 
-int night =false;
-int bridge =false;
+int mode =0;
+int scene =0;
 int sank=false;
 int pinak=false;
 int thunderstorm=false;
 
 void updatesun(int value) {
 
-   if(night==1){
+   if(mode==1){
      if(sunposition>-1.2)
     {
        sunposition -= sunspeed;
     }
    }
 
-    if(night==2){
+    if(mode==2){
 
       if(sunposition<-0.02){
          sunposition += sunspeed;
@@ -114,7 +114,8 @@ glutTimerFunc(100, runrightboat, 0);
 }
 
 void pinakupdate(int value){
-    if(pinakposition>0.9){
+    if(pinak){
+        if(pinakposition>0.9){
         pinakspeed=0.001f;
         thunderstorm=true;
     }
@@ -128,6 +129,7 @@ void pinakupdate(int value){
                 pinak=false;
             }
 
+    }
 
 glutPostRedisplay();
 glutTimerFunc(100, pinakupdate, 0);
@@ -463,20 +465,21 @@ drawRiverElipsis(0.7f,-0.360f,0.15f,0.01f);
 void keyboard(unsigned char key, int x, int y) {
 
 
- if(key=='n')
+ if(key=='N')
     {
-      night=true;
+      mode=true;
       glutPostRedisplay();
     }
-    if(key=='d')
+    if(key=='D')
     {
-      night=2;
+      mode=2;
       glutPostRedisplay();
     }
 
-    if(key=='b'){
-        bridge=true;
-        glutPostRedisplay();
+   if(key=='E')
+    {
+      mode=2;
+      glutPostRedisplay();
     }
 
     if(key=='p'){
@@ -487,6 +490,22 @@ void keyboard(unsigned char key, int x, int y) {
 
 
 }
+
+
+void specialKeys(int key, int x, int y) {
+    switch (key) {
+      case GLUT_KEY_LEFT:
+          scene--;
+
+
+          break;
+      case GLUT_KEY_RIGHT:
+          scene++;
+          break;
+    }
+}
+
+
 void bridgespanpiller(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4){
 
 glBegin(GL_QUADS);
@@ -1359,41 +1378,62 @@ glEnd();
 glPopMatrix();
 }
 
+void DAY(){
+
+DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f);
+DrawRiver(-1.0f, -1.0f,1.0f, -1.0f,1.0f, -0.20f,-1.0f, -0.20f);
+cloud();
+drawBoat();
+drawHelicopter();
+
+if(scene==0)
+    {
+        if(pinak){
+            glPushMatrix();
+            glTranslatef(pinakposition,0.0f,0.0f);
+            drawBigBoat();
+            glPopMatrix();
+            }
+
+        if(sank){
+
+            }
 
 
+    }
+
+
+if(scene==1)   {
+            Train();
+            car();
+            bus();
+            Bridge();
+            hill();
+}
+
+}
 
 void display()
 {
 
 glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f);
-DrawRiver(-1.0f, -1.0f,1.0f, -1.0f,1.0f, -0.20f,-1.0f, -0.20f);
-cloud();
-drawBoat();
-Train();
-drawHelicopter();
-car();
-bus();
-Bridge();
-hill();
-
-
-
-if(pinak){
-glPushMatrix();
-glTranslatef(pinakposition,0.0f,0.0f);
-drawBigBoat();
-glPopMatrix();
+cout<<scene<<endl;
+if(mode==0){
+    DAY();
 }
-if(sank){
 
-   } //
-
-
-            glFlush();
-            glFlush();
-
+/*
+else if(mode==2){
+    NIGHT();
 }
+else if(mode==3){
+    EVE();
+}
+*/
+
+glFlush();
+}
+
 
 
 
@@ -1404,7 +1444,8 @@ int main(int argc, char** argv)
     glutInitWindowSize(1000, 800);
     glutCreateWindow("OpenGL Setup Test");
     glutDisplayFunc(display);
-//    glutSpecialFunc(specialKeys);
+glutSpecialFunc(specialKeys);
+
     glutKeyboardFunc(keyboard);
     glutTimerFunc(100, updatecloudone, 0);
     glutTimerFunc(100, updatesun, 0);
