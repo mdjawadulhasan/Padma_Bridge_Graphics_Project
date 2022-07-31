@@ -39,7 +39,7 @@ GLfloat Busspeed=0.005f;
 GLfloat Helicopterposition=0.0f;
 GLfloat Helicopterspeed=0.005f;
 
-
+int sunset=-1;
 int mode =0;
 int scene =0;
 int sank=false;
@@ -48,18 +48,25 @@ int thunderstorm=false;
 
 void updatesun(int value) {
 
-   if(mode==1){
+   if(sunset==0){
      if(sunposition>-1.2)
     {
        sunposition -= sunspeed;
     }
+       else{
+        mode=1;
+       }
    }
 
-    if(mode==2){
+    if(sunset==1){
 
       if(sunposition<-0.02){
          sunposition += sunspeed;
 
+      }
+
+      if(sunposition>=-0.98){
+        mode=0;
       }
    }
 
@@ -241,6 +248,42 @@ void drawElipsis(GLfloat x, GLfloat y, GLfloat width,
   glPopMatrix();
 }
 
+void moon(float p, float q,float r,int c)
+{
+    int count=c;
+    int i;
+    GLfloat p1=p; GLfloat q1=q ; GLfloat r1 =r;
+    int tringle2=40;
+    GLfloat tp2 =2.0f * PI  ;
+    glBegin (GL_TRIANGLE_FAN);
+    if(c==1)
+    {
+
+       glColor3ub ( 70, 52, 216);
+    }
+    if(c==2)
+    {
+
+        glColor3ub ( 86, 71, 221);
+    }
+    if(c==3)
+    {
+
+         glColor3ub ( 255, 255, 255);
+    }
+
+    glVertex2f (p1,q1);
+
+    for(i= 0;i<=tringle2; i++)
+    {
+        glVertex2f (
+                    p1+(r1*cos(i*tp2/tringle2)),
+                    q1+(r1*sin(i*tp2/tringle2))
+                    );
+    }
+    glEnd ();
+}
+
 void cloud(float p, float q,float r)
 {
 
@@ -252,7 +295,13 @@ void cloud(float p, float q,float r)
     GLfloat tp2 =2.0f * PI  ;
 
    glBegin (GL_TRIANGLE_FAN);
+   if(mode==0){
     glColor3ub ( 253, 241, 206);
+   }
+    if(mode==1){
+        glColor3ub ( 74, 69, 214);
+    }
+
     glVertex2f (p1,q1);
     for(i= 0;i<=tringle2; i++)
     {
@@ -278,7 +327,14 @@ void drawRiverElipsis(GLfloat x, GLfloat y, GLfloat width,
   glPushMatrix();
   glScalef(width, height, 0);
   glBegin(GL_TRIANGLE_FAN);
-   glColor3ub(35, 138, 141);
+
+  if(mode==0){
+    glColor3ub(35, 138, 141);
+   }
+    if(mode==1){
+         glColor3ub(40, 37, 114);
+    }
+
 
   glVertex2f(0, 0);
   for (i = 0; i <= triangleAmount; i++) {
@@ -292,7 +348,14 @@ void drawRiverElipsis(GLfloat x, GLfloat y, GLfloat width,
 void drawQuadsForCloud(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4)
 {
  glBegin(GL_QUADS);
-    glColor3ub(253, 241, 206);
+
+ if(mode==0){
+     glColor3ub(253, 241, 206);
+   }
+    if(mode==1){
+        glColor3ub(74, 69, 214);
+    }
+
     glVertex2f(x1, y1);
     glVertex2f(x2, y2);
     glVertex2f(x3, y3);
@@ -304,7 +367,15 @@ void DrawSky(float x1,float y1,float x2,float y2,float x3,float y3,float x4,floa
 {
 
 glBegin(GL_QUADS);
-    glColor3ub(82, 192, 191);
+
+
+    if(mode==0){
+     glColor3ub(82, 192, 191);
+   }
+    if(mode==1){
+        glColor3ub(60, 41, 212);
+    }
+
     glVertex2f(x1, y1);
     glVertex2f(x2, y2);
     glVertex2f(x3, y3);
@@ -320,6 +391,44 @@ glPopMatrix();
 
 
 }
+void star(float p, float q,float r,int c)
+{
+
+    int count=c;
+    int i;
+    GLfloat p1=p; GLfloat q1=q ; GLfloat r1 =r;
+    int tringle2=40;
+    GLfloat tp2 =2.0f * PI  ;
+    glBegin (GL_TRIANGLE_FAN);
+    if(c==1)
+    {
+
+       glColor3ub ( 70, 52, 216);
+    }
+    if(c==2)
+    {
+
+        glColor3ub ( 86, 71, 221);
+    }
+    if(c==3)
+    {
+
+         glColor3ub ( 255, 255, 255);
+    }
+
+    glVertex2f (p1,q1);
+
+    for(i= 0;i<=tringle2; i++)
+    {
+        glVertex2f (
+                    p1+(r1*cos(i*tp2/tringle2)),
+                    q1+(r1*sin(i*tp2/tringle2))
+                    );
+    }
+    glEnd ();
+
+}
+
 
 void cloud(){
 
@@ -376,11 +485,20 @@ glPopMatrix();
 void hill()
 {
 
-
-
+    int x,y,z;
+if(mode==0){
+     x=192;
+     y=192;
+     z=192;
+   }
+    if(mode==1){
+    x=12;
+     y=4;
+     z=70;
+    }
 
             glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(192,192,192);
+            glColor3ub(x,y,z);
             glVertex2f(-0.77f, -0.22);
             glVertex2f(-0.65f, -0.22f);
             glVertex2f(-0.7f, 0.005f);
@@ -388,7 +506,7 @@ void hill()
             glEnd();
 
             glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(192,192,192);
+           glColor3ub(x,y,z);
             glVertex2f(-0.75f, -0.22);
             glVertex2f(-0.5f, -0.22f);
             glVertex2f(-0.6f, -0.09f);
@@ -397,7 +515,7 @@ void hill()
 
 
            glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(192,192,192);
+           glColor3ub(x,y,z);
             glVertex2f(-0.9f, -0.22);
             glVertex2f(-0.7f, -0.22f);
             glVertex2f(-0.8f, -0.03f);
@@ -405,7 +523,7 @@ void hill()
             glEnd();
 
             glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(192,192,192);
+           glColor3ub(x,y,z);
             glVertex2f(-1.055f, -0.22);
             glVertex2f(-0.8f, -0.22f);
             glVertex2f(-0.9f, 0.06f);
@@ -416,7 +534,7 @@ void hill()
 
 
             glBegin(GL_TRIANGLE_FAN);
-            glColor3ub(192,192,192);
+            glColor3ub(x,y,z);
             glVertex2f(0.75f, -0.22);
             glVertex2f(0.5f, -0.22f);
             glVertex2f(0.6f, -0.09f);
@@ -425,7 +543,7 @@ void hill()
 
 
            glBegin(GL_TRIANGLE_FAN);
-             glColor3ub(192,192,192);
+             glColor3ub(x,y,z);
             glVertex2f(0.9f, -0.22);
             glVertex2f(0.7f, -0.22f);
             glVertex2f(0.8f, -0.03f);
@@ -433,7 +551,7 @@ void hill()
             glEnd();
 
             glBegin(GL_TRIANGLE_FAN);
-           glColor3ub(192,192,192);
+           glColor3ub(x,y,z);
             glVertex2f(1.1f, -0.22);
             glVertex2f(0.8f, -0.22f);
             glVertex2f(0.9f, 0.06f);
@@ -446,8 +564,17 @@ void hill()
 void DrawRiver(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4)
 {
 
+
+
     glBegin(GL_QUADS);
-    glColor3ub(1, 127, 129);
+
+    if(mode==0){
+     glColor3ub(1, 127, 129);
+   }
+    if(mode==1){
+         glColor3ub(22, 18, 78);
+    }
+
     glVertex2f(x1, y1);
     glVertex2f(x2, y2);
     glVertex2f(x3, y3);
@@ -467,12 +594,16 @@ void keyboard(unsigned char key, int x, int y) {
 
  if(key=='N')
     {
-      mode=true;
+      mode=1;
+      sunposition=-1.2f;
+      sunset=0;
       glutPostRedisplay();
     }
     if(key=='D')
     {
-      mode=2;
+      mode=0;
+      sunposition=0.0f;
+      sunset=1;
       glutPostRedisplay();
     }
 
@@ -482,11 +613,10 @@ void keyboard(unsigned char key, int x, int y) {
       glutPostRedisplay();
     }
 
-    if(key=='p'){
+    if(key=='P'){
         pinak=true;
         glutPostRedisplay();
     }
-
 
 
 }
@@ -496,11 +626,15 @@ void specialKeys(int key, int x, int y) {
     switch (key) {
       case GLUT_KEY_LEFT:
           scene--;
-
-
           break;
       case GLUT_KEY_RIGHT:
           scene++;
+          break;
+      case GLUT_KEY_UP:
+         sunset=1;
+          break;
+      case GLUT_KEY_DOWN:
+         sunset=0;
           break;
     }
 }
@@ -1048,6 +1182,20 @@ glPopMatrix();
 void drawBoat()
 {
 
+int x,y,z;
+if(mode==0){
+    x=255;
+    y=255;
+    z=255;
+}
+else if(mode==1){
+     x=70;
+    y=65;
+    z=202;
+}
+
+
+
 
 glPushMatrix();
 glTranslatef(lboatpos,0.0f,0.0f);
@@ -1058,7 +1206,7 @@ drawRiverElipsis(-0.83f,-0.850f,0.11f,0.015f);
 
 
         glBegin(GL_TRIANGLE_FAN); //  left up in boat 1
-            glColor3ub(255, 255, 255);
+            glColor3ub(x,y,z);
             glVertex2f(-0.92f, -0.35f);
             glVertex2f(-0.82f, -0.35f);
             glVertex2f(-0.77f, -0.30f);
@@ -1068,13 +1216,13 @@ drawRiverElipsis(-0.83f,-0.850f,0.11f,0.015f);
 
         glLineWidth(8); //line in boat 1
         glBegin(GL_LINES);
-        glColor3ub(255, 255, 255);
+       glColor3ub(x,y,z);
         glVertex2f(-0.87f, -0.29f);
         glVertex2f(-0.87f, -0.23f);
         glEnd();
 
           glBegin(GL_TRIANGLE_FAN);  //boat 1 right pall
-          glColor3ub(255, 255, 255);
+          glColor3ub(x,y,z);
           glVertex2f(-0.86f, -0.29f);
           glVertex2f(-0.80f, -0.29f);
           glVertex2f(-0.86f, -0.24f);
@@ -1082,7 +1230,7 @@ drawRiverElipsis(-0.83f,-0.850f,0.11f,0.015f);
 
 
           glBegin(GL_TRIANGLE_FAN);  ////boat 1 left pall
-          glColor3ub(255, 255, 255);
+          glColor3ub(x,y,z);
           glVertex2f(-0.92f, -0.29f);
           glVertex2f(-0.88f, -0.29f);
           glVertex2f(-0.88f, -0.23f);
@@ -1092,7 +1240,7 @@ drawRiverElipsis(-0.83f,-0.850f,0.11f,0.015f);
           //Down Left Boat
 
            glBegin(GL_TRIANGLE_FAN); //  left down in boat 1
-            glColor3ub(255, 255, 255);
+           glColor3ub(x,y,z);
             glVertex2f(-0.88f, -0.85f);
             glVertex2f(-0.78f, -0.85f);
             glVertex2f(-0.73f, -0.80f);
@@ -1102,19 +1250,19 @@ drawRiverElipsis(-0.83f,-0.850f,0.11f,0.015f);
 
         glLineWidth(8); //line in boat 1
         glBegin(GL_LINES);
-        glColor3ub(255, 255, 255);
+        glColor3ub(x,y,z);
         glVertex2f(-0.86f, -0.79f);
         glVertex2f(-0.86f, -0.73f);
         glEnd();
 
          glBegin(GL_LINES);
-        glColor3ub(255, 255, 255);
+        glColor3ub(x,y,z);
         glVertex2f(-0.88f, -0.79f);
         glVertex2f(-0.88f, -0.73f);
         glEnd();
 
           glBegin(GL_TRIANGLE_FAN);  //boat 1 right pall
-          glColor3ub(255, 255, 255);
+         glColor3ub(x,y,z);
           glVertex2f(-0.848f, -0.79f);
           glVertex2f(-0.72f, -0.79f);
           glVertex2f(-0.848f,-0.72f);
@@ -1131,7 +1279,7 @@ glTranslatef(rboatpos,0.0f,0.0f);
 drawRiverElipsis(0.85f,-0.550f,0.11f,0.015f);
 
           glBegin(GL_TRIANGLE_FAN); // right mid in boat 2
-            glColor3ub(255, 255, 255);
+            glColor3ub(x,y,z);
             glVertex2f(0.92f, -0.55f);
             glVertex2f(0.82f, -0.55f);
             glVertex2f(0.77f, -0.50f);
@@ -1141,13 +1289,13 @@ drawRiverElipsis(0.85f,-0.550f,0.11f,0.015f);
 
         glLineWidth(8); //line in boat 2
         glBegin(GL_LINES);
-        glColor3ub(255, 255, 255);
+       glColor3ub(x,y,z);
         glVertex2f(0.87f, -0.49f);
         glVertex2f(0.87f, -0.43f);
         glEnd();
 
           glBegin(GL_TRIANGLE_FAN);  //boat 2 right pall
-          glColor3ub(255, 255, 255);
+         glColor3ub(x,y,z);
           glVertex2f(0.86f, -0.49f);
           glVertex2f(0.80f, -0.49f);
           glVertex2f(0.86f, -0.43f);
@@ -1155,13 +1303,507 @@ drawRiverElipsis(0.85f,-0.550f,0.11f,0.015f);
 
 
           glBegin(GL_TRIANGLE_FAN);  ////boat 2 left pall
-          glColor3ub(255, 255, 255);
+         glColor3ub(x,y,z);
           glVertex2f(0.92f, -0.49f);
           glVertex2f(0.88f, -0.49f);
           glVertex2f(0.88f, -0.43f);
           glEnd();
 
 glPopMatrix();
+
+}
+
+void CallStar()
+{
+
+     star(-0.98f,0.98f,0.008f,1);  //last 1 for moon count
+       star(-0.98f,0.98f,0.006f,2); //      2 ,,
+       star(-0.98f,0.98f,0.004f,3);
+
+
+       star(-0.95f,0.95f,0.008f,1);  //last 1 for moon count
+       star(-0.95f,0.95f,0.006f,2); //      2 ,,
+       star(-0.95f,0.95f,0.004f,3);
+
+       star(-0.98f,0.95f,0.008f,1);  //last 1 for moon count
+       star(-0.98f,0.95f,0.006f,2); //      2 ,,
+       star(-0.98f,0.95f,0.004f,3);
+
+
+       star(-0.90f,0.90f,0.008f,1);  //last 1 for moon count
+       star(-0.90f,0.90f,0.006f,2); //      2 ,,
+       star(-0.90f,0.90f,0.004f,3);
+
+       star(-0.7f,0.90f,0.008f,1);  //last 1 for moon count
+       star(-0.70f,0.90f,0.006f,2); //      2 ,,
+       star(-0.70f,0.90f,0.004f,3);
+
+        star(-0.7f,0.70f,0.008f,1);  //last 1 for moon count
+       star(-0.70f,0.70f,0.006f,2); //      2 ,,
+       star(-0.70f,0.70f,0.004f,3);
+
+
+        star(-0.8f,0.70f,0.008f,1);  //last 1 for moon count
+       star(-0.80f,0.70f,0.006f,2); //      2 ,,
+       star(-0.80f,0.70f,0.004f,3);
+
+       //
+       star(-0.90f,0.60f,0.008f,1);  //last 1 for moon count
+       star(-0.90f,0.60f,0.006f,2); //      2 ,,
+       star(-0.90f,0.60f,0.004f,3);
+
+       star(-0.7f,0.60f,0.008f,1);  //last 1 for moon count
+       star(-0.70f,0.60f,0.006f,2); //      2 ,,
+       star(-0.70f,0.60f,0.004f,3);
+
+        star(-0.7f,0.40f,0.008f,1);  //last 1 for moon count
+       star(-0.70f,0.40f,0.006f,2); //      2 ,,
+       star(-0.70f,0.40f,0.004f,3);
+
+       star(-0.85f,0.60f,0.008f,1);  //last 1 for moon count
+       star(-0.85f,0.60f,0.006f,2); //      2 ,,
+       star(-0.85f,0.60f,0.004f,3);
+
+       //
+
+       star(-0.20f,0.60f,0.008f,1);  //last 1 for moon count
+       star(-0.20f,0.60f,0.006f,2); //      2 ,,
+       star(-0.20f,0.60f,0.004f,3);
+
+       star(-0.25f,0.62f,0.008f,1);  //last 1 for moon count
+       star(-0.250f,0.62f,0.006f,2); //      2 ,,
+       star(-0.25f,0.62f,0.004f,3);
+
+        star(-0.3f,0.42f,0.008f,1);  //last 1 for moon count
+       star(-0.30f,0.42f,0.006f,2); //      2 ,,
+       star(-0.30f,0.42f,0.004f,3);
+
+       star(-0.35f,0.7f,0.008f,1);  //last 1 for moon count
+       star(-0.35f,0.7f,0.006f,2); //      2 ,,
+       star(-0.35f,0.7f,0.004f,3);
+
+
+       //
+        star(0.20f,0.60f,0.008f,1);  //last 1 for moon count
+       star(0.20f,0.60f,0.006f,2); //      2 ,,
+       star(0.20f,0.60f,0.004f,3);
+
+       star(0.25f,0.62f,0.008f,1);  //last 1 for moon count
+       star(0.250f,0.62f,0.006f,2); //      2 ,,
+       star(0.25f,0.62f,0.004f,3);
+
+        star(0.3f,0.42f,0.008f,1);  //last 1 for moon count
+       star(0.30f,0.42f,0.006f,2); //      2 ,,
+       star(0.30f,0.42f,0.004f,3);
+
+       star(0.35f,0.7f,0.008f,1);  //last 1 for moon count
+       star(0.35f,0.7f,0.006f,2); //      2 ,,
+       star(0.35f,0.7f,0.004f,3);
+       //
+        star(0.20f,0.30f,0.008f,1);  //last 1 for moon count
+       star(0.20f,0.30f,0.006f,2); //      2 ,,
+       star(0.20f,0.30f,0.004f,3);
+
+       star(0.15f,0.42f,0.008f,1);  //last 1 for moon count
+       star(0.150f,0.42f,0.006f,2); //      2 ,,
+       star(0.15f,0.42f,0.004f,3);
+
+        star(0.1f,0.42f,0.008f,1);  //last 1 for moon count
+       star(0.1f,0.42f,0.006f,2); //      2 ,,
+       star(0.1f,0.42f,0.004f,3);
+
+       star(0.3f,0.3f,0.008f,1);  //last 1 for moon count
+       star(0.3f,0.3f,0.006f,2); //      2 ,,
+       star(0.3f,0.3f,0.004f,3);
+//
+
+
+
+       star(0.98f,0.7f,0.008f,1);  //last 1 for moon count
+       star(0.98f,0.7f,0.006f,2); //      2 ,,
+       star(0.98f,0.77,0.004f,3);
+
+
+       star(0.95f,0.95f,0.008f,1);  //last 1 for moon count
+       star(0.95f,0.95f,0.006f,2); //      2 ,,
+       star(0.95f,0.95f,0.004f,3);
+
+       star(0.98f,0.95f,0.008f,1);  //last 1 for moon count
+       star(0.98f,0.95f,0.006f,2); //      2 ,,
+       star(0.98f,0.95f,0.004f,3);
+
+
+       star(0.90f,0.90f,0.008f,1);  //last 1 for moon count
+       star(0.90f,0.90f,0.006f,2); //      2 ,,
+       star(0.90f,0.90f,0.004f,3);
+
+       star(0.7f,0.90f,0.008f,1);  //last 1 for moon count
+       star(0.70f,0.90f,0.006f,2); //      2 ,,
+       star(0.70f,0.90f,0.004f,3);
+
+        star(0.7f,0.70f,0.008f,1);  //last 1 for moon count
+       star(0.70f,0.70f,0.006f,2); //      2 ,,
+       star(0.70f,0.70f,0.004f,3);
+
+
+        star(0.8f,0.70f,0.008f,1);  //last 1 for moon count
+       star(0.80f,0.70f,0.006f,2); //      2 ,,
+       star(0.80f,0.70f,0.004f,3);
+
+       star(0.9f,0.5f,0.008f,1);  //last 1 for moon count
+       star(0.9f,0.5f,0.006f,2); //      2 ,,
+       star(0.9f,0.5f,0.004f,3);
+//
+       star(0.98f,0.55f,0.008f,1);  //last 1 for moon count
+       star(0.98f,0.55f,0.006f,2); //      2 ,,
+       star(0.98f,0.55f,0.004f,3);
+
+
+       star(0.55f,0.24f,0.008f,1);  //last 1 for moon count
+       star(0.55f,0.24f,0.006f,2); //      2 ,,
+       star(0.55f,0.24f,0.004f,3);
+
+       star(0.48f,0.1f,0.008f,1);  //last 1 for moon count
+       star(0.48f,0.1f,0.006f,2); //      2 ,,
+       star(0.48f,0.1f,0.004f,3);
+
+
+       star(0.90f,0.15f,0.008f,1);  //last 1 for moon count
+       star(0.90f,0.15f,0.006f,2); //      2 ,,
+       star(0.90f,0.15f,0.004f,3);
+
+       star(0.7f,0.12f,0.008f,1);  //last 1 for moon count
+       star(0.70f,0.12f,0.006f,2); //      2 ,,
+       star(0.70f,0.12f,0.004f,3);
+
+        star(0.7f,0.05f,0.008f,1);  //last 1 for moon count
+       star(0.70f,0.05f,0.006f,2); //      2 ,,
+       star(0.70f,0.05f,0.004f,3);
+
+
+        star(0.8f,0.01f,0.008f,1);  //last 1 for moon count
+       star(0.80f,0.01f,0.006f,2); //      2 ,,
+       star(0.80f,0.01f,0.004f,3);
+
+       star(0.85f,0.055f,0.008f,1);  //last 1 for moon count
+       star(0.85f,0.055f,0.006f,2); //      2 ,,
+       star(0.85f,0.055f,0.004f,3);
+
+       //
+       star(-0.5f,-0.1f,0.008f,1);  //last 1 for moon count
+       star(-0.5f,-0.1f,0.006f,2); //      2 ,,
+       star(-0.5f,-0.1f,0.004f,3);
+
+
+      star(-0.5f,-0.15f,0.008f,1);  //last 1 for moon count
+       star(-0.5f,-0.15f,0.006f,2); //      2 ,,
+       star(-0.5f,-0.15f,0.004f,3);
+
+        star(-0.3f,-0.1f,0.008f,1);  //last 1 for moon count
+       star(-0.3f,-0.1f,0.006f,2); //      2 ,,
+       star(-0.3f,-0.1f,0.004f,3);
+
+        star(-0.1f,-0.12f,0.008f,1);  //last 1 for moon count
+       star(-0.1f,-0.12f,0.006f,2); //      2 ,,
+       star(-0.1f,-0.12f,0.004f,3);
+
+        star(0.5f,-0.1f,0.008f,1);  //last 1 for moon count
+       star(0.5f,-0.1f,0.006f,2); //      2 ,,
+       star(0.5f,-0.1f,0.004f,3);
+
+       //
+       star(0.2f,-0.18f,0.008f,1);  //last 1 for moon count
+       star(0.2f,-0.18f,0.006f,2); //      2 ,,
+       star(0.2f,-0.18f,0.004f,3);
+
+
+      star(0.3f,-0.05f,0.008f,1);  //last 1 for moon count
+       star(0.3f,-0.05f,0.006f,2); //      2 ,,
+       star(0.3f,-0.05f,0.004f,3);
+
+        star(0.3f,0.01f,0.008f,1);  //last 1 for moon count
+       star(0.3f,0.01f,0.006f,2); //      2 ,,
+       star(0.3f,0.01f,0.004f,3);
+
+        star(0.1f,0.12f,0.008f,1);  //last 1 for moon count
+       star(0.1f,0.12f,0.006f,2); //      2 ,,
+       star(0.1f,0.12f,0.004f,3);
+
+        star(0.6f,0.1f,0.008f,1);  //last 1 for moon count
+       star(0.6f,0.1f,0.006f,2); //      2 ,,
+       star(0.6f,0.1f,0.004f,3);
+
+       //
+        star(0.2f,0.8f,0.008f,1);  //last 1 for moon count
+       star(0.2f,0.8f,0.006f,2); //      2 ,,
+       star(0.2f,0.8f,0.004f,3);
+
+
+      star(0.33f,0.5f,0.008f,1);  //last 1 for moon count
+       star(0.33f,0.5f,0.006f,2); //      2 ,,
+       star(0.33f,0.5f,0.004f,3);
+
+        star(0.3f,0.7f,0.008f,1);  //last 1 for moon count
+       star(0.3f,0.7f,0.006f,2); //      2 ,,
+       star(0.3f,0.7f,0.004f,3);
+
+        star(0.4f,0.8f,0.008f,1);  //last 1 for moon count
+       star(0.4f,0.8f,0.006f,2); //      2 ,,
+       star(0.4f,0.8f,0.004f,3);
+
+        star(0.45f,0.75f,0.008f,1);  //last 1 for moon count
+       star(0.45f,0.75f,0.006f,2); //      2 ,,
+       star(0.45f,0.75f,0.004f,3);
+
+       //
+       star(0.9f,0.8f,0.008f,1);  //last 1 for moon count
+       star(0.9f,0.8f,0.006f,2); //      2 ,,
+       star(0.9f,0.8f,0.004f,3);
+
+
+      star(0.95f,0.5f,0.008f,1);  //last 1 for moon count
+       star(0.95f,0.5f,0.006f,2); //      2 ,,
+       star(0.95f,0.5f,0.004f,3);
+
+        star(0.8f,0.7f,0.008f,1);  //last 1 for moon count
+       star(0.8f,0.7f,0.006f,2); //      2 ,,
+       star(0.8f,0.7f,0.004f,3);
+
+        star(0.65f,0.8f,0.008f,1);  //last 1 for moon count
+       star(0.65f,0.8f,0.006f,2); //      2 ,,
+       star(0.65f,0.8f,0.004f,3);
+
+        star(0.75f,0.75f,0.008f,1);  //last 1 for moon count
+       star(0.75f,0.75f,0.006f,2); //      2 ,,
+       star(0.75f,0.75f,0.004f,3);
+
+
+
+       //nnm
+        star(-0.2f,-0.18f,0.008f,1);  //last 1 for moon count
+       star(-0.2f,-0.18f,0.006f,2); //      2 ,,
+       star(-0.2f,-0.18f,0.004f,3);
+
+
+      star(-0.3f,-0.05f,0.008f,1);  //last 1 for moon count
+       star(-0.3f,-0.05f,0.006f,2); //      2 ,,
+       star(-0.3f,-0.05f,0.004f,3);
+
+        star(-0.3f,0.01f,0.008f,1);  //last 1 for moon count
+       star(-0.3f,0.01f,0.006f,2); //      2 ,,
+       star(-0.3f,0.01f,0.004f,3);
+
+        star(-0.1f,0.12f,0.008f,1);  //last 1 for moon count
+       star(-0.1f,0.12f,0.006f,2); //      2 ,,
+       star(-0.1f,0.12f,0.004f,3);
+
+        star(-0.6f,0.1f,0.008f,1);  //last 1 for moon count
+       star(-0.6f,0.1f,0.006f,2); //      2 ,,
+       star(-0.6f,0.1f,0.004f,3);
+
+       //
+        star(-0.2f,0.8f,0.008f,1);  //last 1 for moon count
+       star(-0.2f,0.8f,0.006f,2); //      2 ,,
+       star(-0.2f,0.8f,0.004f,3);
+
+
+      star(-0.33f,0.5f,0.008f,1);  //last 1 for moon count
+       star(-0.33f,0.5f,0.006f,2); //      2 ,,
+       star(-0.33f,0.5f,0.004f,3);
+
+        star(-0.3f,0.7f,0.008f,1);  //last 1 for moon count
+       star(-0.3f,0.7f,0.006f,2); //      2 ,,
+       star(-0.3f,0.7f,0.004f,3);
+
+        star(-0.4f,0.8f,0.008f,1);  //last 1 for moon count
+       star(-0.4f,0.8f,0.006f,2); //      2 ,,
+       star(-0.4f,0.8f,0.004f,3);
+
+        star(-0.45f,0.75f,0.008f,1);  //last 1 for moon count
+       star(-0.45f,0.75f,0.006f,2); //      2 ,,
+       star(-0.45f,0.75f,0.004f,3);
+
+       //
+       star(-0.9f,0.8f,0.008f,1);  //last 1 for moon count
+       star(-0.9f,0.8f,0.006f,2); //      2 ,,
+       star(-0.9f,0.8f,0.004f,3);
+
+
+      star(-0.95f,0.5f,0.008f,1);  //last 1 for moon count
+       star(-0.95f,0.5f,0.006f,2); //      2 ,,
+       star(-0.95f,0.5f,0.004f,3);
+
+        star(-0.8f,0.7f,0.008f,1);  //last 1 for moon count
+       star(-0.8f,0.7f,0.006f,2); //      2 ,,
+       star(-0.8f,0.7f,0.004f,3);
+
+        star(-0.65f,0.8f,0.008f,1);  //last 1 for moon count
+       star(-0.65f,0.8f,0.006f,2); //      2 ,,
+       star(-0.65f,0.8f,0.004f,3);
+
+        star(-0.75f,0.75f,0.008f,1);  //last 1 for moon count
+       star(-0.75f,0.75f,0.006f,2); //      2 ,,
+       star(-0.75f,0.75f,0.004f,3);
+
+
+
+
+
+//small
+
+
+ star(0.0f,-0.18f,0.004f,1);  //last 1 for moon count
+       star(0.0f,-0.18f,0.003f,2); //      2 ,,
+       star(0.0f,-0.18f,0.002f,3);
+
+
+      star(0.01f,-0.05f,0.004f,1);  //last 1 for moon count
+       star(0.01f,-0.05f,0.003f,2); //      2 ,,
+       star(0.01f,-0.05f,0.002f,3);
+
+        star(0.1f,0.01f,0.004f,1);  //last 1 for moon count
+       star(0.1f,0.01f,0.003f,2); //      2 ,,
+       star(0.1f,0.01f,0.002f,3);
+
+        star(-0.05f,0.12f,0.004f,1);  //last 1 for moon count
+       star(-0.05f,0.12f,0.003f,2); //      2 ,,
+       star(-0.05f,0.12f,0.001f,3);
+
+        star(0.06f,0.1f,0.004f,1);  //last 1 for moon count
+       star(0.06f,0.1f,0.003f,2); //      2 ,,
+       star(0.06f,0.1f,0.002f,3);
+
+       //
+        star(-0.6f,0.8f,0.004f,1);  //last 1 for moon count
+       star(- 0.6f,0.8f,0.003f,2); //      2 ,,
+       star(-0.6f,0.8f,0.002f,3);
+
+
+      star(-0.7f,0.56f,0.004f,1);  //last 1 for moon count
+       star(-0.7f,0.56f,0.003f,2); //      2 ,,
+       star(-0.7f,0.56f,0.002f,3);
+
+        star(-0.8f,0.78f,0.004f,1);  //last 1 for moon count
+       star(-0.8f,0.78f,0.003f,2); //      2 ,,
+       star(-0.8f,0.78f,0.002f,3);
+
+        star(-0.75f,0.85f,0.004f,1);  //last 1 for moon count
+       star(-0.75f,0.85f,0.003f,2); //      2 ,,
+       star(-0.75f,0.85f,0.002f,3);
+
+        star(-0.45f,0.7f,0.004f,1);  //last 1 for moon count
+       star(-0.45f,0.7f,0.003f,2); //      2 ,,
+       star(-0.45f,0.7f,0.002f,3);
+
+       //
+       star(0.7f,0.3f,0.004f,1);  //last 1 for moon count
+       star(0.7f,0.3f,0.003f,2); //      2 ,,
+       star(0.7f,0.3f,0.002f,3);
+
+
+      star(0.75f,0.2f,0.004f,1);  //last 1 for moon count
+       star(0.7f,0.2f,0.003f,2); //      2 ,,
+       star(0.75f,0.2f,0.002f,3);
+
+        star(0.8f,0.25f,0.004f,1);  //last 1 for moon count
+       star(0.8f,0.25f,0.003f,2); //      2 ,,
+       star(0.8f,0.25f,0.002f,3);
+
+        star(0.65f,0.1f,0.004f,1);  //last 1 for moon count
+       star(0.65f,0.1f,0.003f,2); //      2 ,,
+       star(0.65f,0.1f,0.002f,3);
+
+        star(0.85f,0.15f,0.004f,1);  //last 1 for moon count
+       star(0.85f,0.15f,0.003f,2); //      2 ,,
+       star(0.85f,0.15f,0.002f,3);
+
+       star(0.0f,0.5f,0.008f,1);  //last 1 for moon count
+       star(0.0f,0.5f,0.006f,2); //      2 ,,
+       star(0.0f,0.5f,0.004f,3);
+
+
+       star(-0.05f,0.56f,0.008f,1);  //last 1 for moon count
+       star(-0.05f,0.56f,0.006f,2); //      2 ,,
+       star(-0.05f,0.56f,0.004f,3);
+
+       //
+
+       star(0.0f,0.9f,0.008f,1);  //last 1 for moon count
+       star(0.0f,0.9f,0.006f,2); //      2 ,,
+       star(0.0f,0.9f,0.004f,3);
+
+
+       star(-0.05f,0.95f,0.008f,1);  //last 1 for moon count
+       star(-0.05f,0.95f,0.006f,2); //      2 ,,
+       star(-0.05f,0.95f,0.004f,3);
+
+
+       star(0.0f,0.87f,0.008f,1);  //last 1 for moon count
+       star(0.0f,0.87f,0.006f,2); //      2 ,,
+       star(0.0f,0.87f,0.004f,3);
+
+
+       star(-0.05f,0.8f,0.008f,1);  //last 1 for moon count
+       star(-0.05f,0.8f,0.006f,2); //      2 ,,
+       star(-0.05f,0.8f,0.004f,3);
+//
+      star(-0.95f,0.05f,0.008f,1);  //last 1 for moon count
+       star(-0.95f,0.05f,0.006f,2); //      2 ,,
+       star(-0.95f,0.05f,0.004f,3);
+
+
+       star(-0.85f,0.08f,0.008f,1);  //last 1 for moon count
+       star(-0.85f,0.08f,0.006f,2); //      2 ,,
+       star(-0.85f,0.08f,0.004f,3);
+
+
+       star(- 0.7f,0.1f,0.008f,1);  //last 1 for moon count
+       star(-0.7f,0.1f,0.006f,2); //      2 ,,
+       star(-0.7f,0.1f,0.004f,3);
+
+
+       star(-0.65f,0.2f,0.008f,1);  //last 1 for moon count
+       star(-0.65f,0.2f,0.006f,2); //      2 ,,
+       star(-0.65f,0.2f,0.004f,3);
+
+
+
+       //
+
+       star(0.5f,0.1f,0.002f,3);
+       star(0.6f,0.15f,0.002f,3);
+       star(0.7f,0.2f,0.002f,3);
+       star(0.8f,0.25f,0.002f,3);
+       star(0.9f,0.3f,0.002f,3);
+       star(0.55f,0.35f,0.002f,3);
+       star(0.765f,0.45f,0.002f,3);
+       star(0.65f,0.55f,0.002f,3);
+       star(0.88f,0.65f,0.002f,3);
+       star(0.8f,0.75f,0.002f,3);
+
+
+       //
+       star(0.1f,0.1f,0.002f,3);
+       star(0.15f,0.15f,0.002f,3);
+       star(0.16,0.2f,0.002f,3);
+       star(0.18f,0.25f,0.002f,3);
+       star(-0.1f,0.3f,0.002f,3);
+       star(-0.15f,0.35f,0.002f,3);
+       star(-0.17f,0.45f,0.002f,3);
+       star(0.3f,0.55f,0.002f,3);
+       star(-0.35f,0.65f,0.002f,3);
+       star(-0.15f,0.75f,0.002f,3);
+//
+star(-0.5f,0.1f,0.002f,3);
+       star(-0.6f,0.15f,0.002f,3);
+       star(-0.7f,0.2f,0.002f,3);
+       star(-0.8f,0.25f,0.002f,3);
+       star(-0.9f,0.3f,0.002f,3);
+       star(-0.55f,0.35f,0.002f,3);
+       star(-0.765f,0.45f,0.002f,3);
+       star(-0.65f,0.55f,0.002f,3);
+       star(-0.88f,0.65f,0.002f,3);
+       star(-0.8f,0.75f,0.002f,3);
 
 }
 
@@ -1378,13 +2020,10 @@ glEnd();
 glPopMatrix();
 }
 
-void DAY(){
+void SelectScene(){
 
-DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f);
-DrawRiver(-1.0f, -1.0f,1.0f, -1.0f,1.0f, -0.20f,-1.0f, -0.20f);
-cloud();
-drawBoat();
-drawHelicopter();
+
+
 
 if(scene==0)
     {
@@ -1417,20 +2056,23 @@ void display()
 {
 
 glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-cout<<scene<<endl;
-if(mode==0){
-    DAY();
+DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f);
+DrawRiver(-1.0f, -1.0f,1.0f, -1.0f,1.0f, -0.20f,-1.0f, -0.20f);
+cloud();
+drawBoat();
+drawHelicopter();
+
+if(mode==1){
+
+moon(-0.47f,0.86f,0.07f,1);  //last 1 for moon count
+moon(-0.47f,0.86f,0.06f,2); //      2 ,,
+moon(-0.47f,0.86f,0.045f,3);  //     3 ,,
+CallStar();
+
 }
 
-/*
-else if(mode==2){
-    NIGHT();
-}
-else if(mode==3){
-    EVE();
-}
-*/
-
+cout<<sunposition<<endl;
+SelectScene();
 glFlush();
 }
 
