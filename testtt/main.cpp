@@ -2720,6 +2720,10 @@ if(scene==0)
 drawBoatThunderstormSky();
             }
 
+if(!thunderstorm){
+	 drawBoat();
+    drawHelicopter();
+}
 
     }
 
@@ -2730,6 +2734,9 @@ if(scene==1)   {
             bus();
             Bridge();
             hill();
+			 drawBoat();
+    drawHelicopter();
+
 }
 
 }
@@ -2741,11 +2748,6 @@ glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f);
 DrawRiver(-1.0f, -1.0f,1.0f, -1.0f,1.0f, -0.20f,-1.0f, -0.20f);
 cloud();
-if(!thunderstorm){
-    drawBoat();
-    drawHelicopter();
-}
-
 if(mode==0){
     Bird();
 }
