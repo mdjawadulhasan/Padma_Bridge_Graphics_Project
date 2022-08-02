@@ -25,7 +25,8 @@ GLfloat lboatspeed=0.01f;
 GLfloat rboatspeed=0.01f;
 
 GLfloat pinakposition=0.0f;
-GLfloat pinakspeed=0.005f;
+//GLfloat pinakspeed=0.005f;
+GLfloat pinakspeed=1.0f;
 
 GLfloat Trainposition=0.0f;
 GLfloat Trainspeed=0.005f;
@@ -38,6 +39,14 @@ GLfloat Busspeed=0.005f;
 
 GLfloat Helicopterposition=0.0f;
 GLfloat Helicopterspeed=0.005f;
+
+
+
+GLfloat lbird=0.0f;
+GLfloat rbird=0.0f;
+
+GLfloat lbirdspeed=0.01f;
+GLfloat rbirdspeed=0.01f;
 
 int sunset=-1;
 int mode =0;
@@ -120,11 +129,38 @@ glutTimerFunc(100, runrightboat, 0);
 
 }
 
+
+void runleftbirds(int value){
+     if(lbird >=1.92)
+       {
+            lbird = (-1.0f);
+       }
+
+    lbird += lbirdspeed;
+
+glutPostRedisplay();
+glutTimerFunc(100, runleftbirds, 0);
+}
+
+void runrightbirds(int value){
+     if(rbird <-1.92)
+       {
+            rbird = 1.0f;
+       }
+
+    rbird -= rbirdspeed;
+
+glutPostRedisplay();
+glutTimerFunc(100, runrightbirds, 0);
+
+
+}
+
 void pinakupdate(int value){
     if(pinak){
         if(pinakposition>0.9){
         pinakspeed=0.001f;
-        thunderstorm=true;
+        mode=2;
     }
 
      if(pinakposition <=1.0f)
@@ -134,6 +170,7 @@ void pinakupdate(int value){
         if(pinakposition>=1.0f){
                 sank=true;
                 pinak=false;
+
             }
 
     }
@@ -301,6 +338,9 @@ void cloud(float p, float q,float r)
     if(mode==1){
         glColor3ub ( 74, 69, 214);
     }
+    if(mode==2){
+        glColor3ub ( 49, 59, 67);
+    }
 
     glVertex2f (p1,q1);
     for(i= 0;i<=tringle2; i++)
@@ -316,6 +356,71 @@ void cloud(float p, float q,float r)
 
 
 }
+
+void Bird()
+{
+
+glPushMatrix();
+glTranslatef(lbird,0.0f,0.0f);
+
+glBegin(GL_POLYGON);
+glColor3f(0.0f, 0.0f, 0.0f);
+glVertex2f(-0.8f, 0.8f);// x, y
+glVertex2f(-0.75f, 0.8f);
+glVertex2f(-0.8f, 0.81f);
+glVertex2f(-0.85f, 0.85f);
+glEnd();
+
+
+glBegin(GL_POLYGON);
+glColor3f(0.0f, 0.0f, 0.0f);
+glVertex2f(-0.7f, 0.7f);// x, y
+glVertex2f(-0.65f, 0.7f);
+glVertex2f(-0.7f, 0.71f);
+glVertex2f(-0.75f, 0.75f);
+glEnd();
+
+
+glBegin(GL_POLYGON);
+glColor3f(0.0f, 0.0f, 0.0f);
+glVertex2f(-0.9f, 0.7f);
+glVertex2f(-0.85f, 0.7f);
+glVertex2f(-0.9f, 0.71f);
+glVertex2f(-0.95f, 0.75f);
+glEnd();
+
+glPopMatrix();
+
+
+glPushMatrix();
+glTranslatef(rbird,0.0f,0.0f);
+glBegin(GL_POLYGON);
+glColor3f(0.0f, 0.0f, 0.0f);
+glVertex2f(0.8f, 0.8f);
+glVertex2f(0.75f, 0.8f);
+glVertex2f(0.8f, 0.81f);
+glVertex2f(0.85f, 0.85f);
+glEnd();
+
+glBegin(GL_POLYGON);
+glColor3f(0.0f, 0.0f, 0.0f);
+glVertex2f(0.7f, 0.7f);// x, y
+glVertex2f(0.65f, 0.7f);
+glVertex2f(0.7f, 0.71f);
+glVertex2f(0.75f, 0.75f);
+glEnd();
+
+
+glBegin(GL_POLYGON);
+glColor3f(0.0f, 0.0f, 0.0f);
+glVertex2f(0.9f, 0.7f);// x, y
+glVertex2f(0.85f, 0.7f);
+glVertex2f(0.9f, 0.71f);
+glVertex2f(0.95f, 0.75f);
+glEnd();
+glPopMatrix();
+}
+
 
 void drawRiverElipsis(GLfloat x, GLfloat y, GLfloat width,
                               GLfloat height)
@@ -652,6 +757,27 @@ glEnd();
 
 }
 
+void bridgelightOn(){
+
+        glLineWidth(5);
+        glBegin(GL_LINES);
+        glColor3ub(246, 226, 86);
+        glVertex2f(-0.9f,  0.39f);
+        glVertex2f(-0.88f, 0.39f);
+        glEnd();
+
+
+        glLineWidth(4); //line in boat 1
+        glBegin(GL_LINES);
+         glColor3ub(246, 226, 86);
+        glVertex2f(-0.85f,  0.39f);
+        glVertex2f(-0.87f, 0.39f);
+        glEnd();
+
+
+
+}
+
 void bridgeLight(){
         glLineWidth(4); //line in boat 1
         glBegin(GL_LINES);
@@ -680,7 +806,15 @@ void bridgeLight(){
         glVertex2f(-0.85f,  0.4f);
         glVertex2f(-0.87f, 0.4f);
         glEnd();
+
+
+        if(mode==1){
+            bridgelightOn();
+        }
 }
+
+
+
 
 void Bridge(){
 
@@ -942,6 +1076,18 @@ void drawBigBoat()
 }
 void Train()
 {
+    int x,y,z;
+if(mode==0){
+    x=255;
+    y=255;
+    z=255;
+}
+
+
+else if(mode==1){
+    x=249;y=234,z=122;
+}
+
     //left part
 glPushMatrix();
 glTranslatef(Trainposition,0.0f,0.0f);
@@ -981,7 +1127,7 @@ glTranslatef(Trainposition,0.0f,0.0f);
         //windows
 
        glBegin(GL_QUADS);
-        glColor3ub(255, 255, 255);
+        glColor3ub(x,y,z);
         glVertex2f(-0.96f,0.045f);
         glVertex2f(-0.93f,0.045f);
         glVertex2f(-0.93f,0.075f);
@@ -991,7 +1137,7 @@ glTranslatef(Trainposition,0.0f,0.0f);
 
 
           glBegin(GL_QUADS);
-        glColor3ub(255, 255, 255);
+        glColor3ub(x,y,z);
         glVertex2f(-0.9f,0.045f);
         glVertex2f(-0.87f,0.045f);
         glVertex2f(-0.87f,0.075f);
@@ -1038,7 +1184,7 @@ glTranslatef(Trainposition,0.0f,0.0f);
 
         //windows in paret 2
  glBegin(GL_QUADS);
-        glColor3ub(255, 255, 255);
+        glColor3ub(x,y,z);
         glVertex2f(-0.81f,0.045f);
         glVertex2f(-0.78f,0.045f);
         glVertex2f(-0.78f,0.075f);
@@ -1048,7 +1194,7 @@ glTranslatef(Trainposition,0.0f,0.0f);
 
 
           glBegin(GL_QUADS);
-        glColor3ub(255, 255, 255);
+           glColor3ub(x,y,z);
         glVertex2f(-0.75f,0.045f);
         glVertex2f(-0.72f,0.045f);
         glVertex2f(-0.72f,0.075f);
@@ -1096,7 +1242,7 @@ glTranslatef(Trainposition,0.0f,0.0f);
 
         // windows for part 3
         glBegin(GL_QUADS);
-        glColor3ub(255, 255, 255);
+          glColor3ub(x,y,z);
         glVertex2f(-0.66f,0.045f);
         glVertex2f(-0.63f,0.045f);
         glVertex2f(-0.63f,0.075f);
@@ -1106,7 +1252,7 @@ glTranslatef(Trainposition,0.0f,0.0f);
 
 
           glBegin(GL_QUADS);
-        glColor3ub(255, 255, 255);
+          glColor3ub(x,y,z);
         glVertex2f(-0.6f,0.045f);
         glVertex2f(-0.57f,0.045f);
         glVertex2f(-0.57f,0.075f);
@@ -1189,7 +1335,7 @@ if(mode==0){
     z=255;
 }
 else if(mode==1){
-     x=70;
+    x=70;
     y=65;
     z=202;
 }
@@ -1829,9 +1975,16 @@ glTranslatef(Carposition,0.0f,0.0f);
         glVertex2f(-0.91f,0.28f);
         glVertex2f(-0.95f,0.28f);
         glEnd();
+
+
 //car windows 1
            glBegin(GL_LINES);
-        glColor3ub(255,255,255);
+       if(mode==0){
+         glColor3ub(255,255,255);
+       }
+       else if(mode==1){
+         glColor3ub(249, 234, 122);
+       }
         glVertex2f(-0.950f,0.265f);
         glVertex2f(-0.940f,0.265f);;
         glEnd();
@@ -1863,6 +2016,18 @@ void bus()
 
 
 
+int x,y,z;
+if(mode==0){
+    x=255;
+    y=255;
+    z=255;
+}
+
+
+else if(mode==1){
+    x=249;y=234,z=122;
+}
+
 glPushMatrix();
 glTranslatef(Busposition,0.0f,0.0f);
   glBegin(GL_QUADS);
@@ -1883,7 +2048,7 @@ glTranslatef(Busposition,0.0f,0.0f);
 
 
            glBegin(GL_QUADS);
-        glColor3ub(255,255,255);
+        glColor3ub(x,y,z);
         glVertex2f(0.81f,0.28f);
         glVertex2f(0.83f,0.28f);
         glVertex2f(0.83f,0.32f);
@@ -1891,7 +2056,7 @@ glTranslatef(Busposition,0.0f,0.0f);
         glEnd();
 
             glBegin(GL_QUADS);
-        glColor3ub(255,255,255);
+        glColor3ub(x,y,z);
         glVertex2f(0.85f,0.28f);
         glVertex2f(0.87f,0.28f);
         glVertex2f(0.87f,0.32f);
@@ -1899,7 +2064,7 @@ glTranslatef(Busposition,0.0f,0.0f);
         glEnd();
 
            glBegin(GL_QUADS);
-        glColor3ub(255,255,255);
+        glColor3ub(x,y,z);
         glVertex2f(0.89f,0.28f);
         glVertex2f(0.91f,0.28f);
         glVertex2f(0.91f,0.32f);
@@ -2061,6 +2226,10 @@ DrawRiver(-1.0f, -1.0f,1.0f, -1.0f,1.0f, -0.20f,-1.0f, -0.20f);
 cloud();
 drawBoat();
 drawHelicopter();
+if(mode==0){
+    Bird();
+}
+
 
 if(mode==1){
 
@@ -2071,7 +2240,7 @@ CallStar();
 
 }
 
-cout<<sunposition<<endl;
+//cout<<sunposition<<endl;
 SelectScene();
 glFlush();
 }
@@ -2096,6 +2265,10 @@ glutSpecialFunc(specialKeys);
     glutTimerFunc(100, pinakupdate, 0);
     glutTimerFunc(100, Trainupdate, 0);
     glutTimerFunc(100, Carupdate, 0);
+    glutTimerFunc(200, runrightbirds, 0);
+    glutTimerFunc(100, runleftbirds, 0);
+
+
 glutTimerFunc(100, Busupdate, 0);
 glutTimerFunc(100, Heliupdate, 0);
     glutMainLoop();
