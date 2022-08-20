@@ -617,7 +617,8 @@ if(mode==3){
     sunEvening(-0.2f,-0.17f,0.09f,242, 237, 182);
 }
 else if(mode!=2 && mode !=3){
-    sun(-0.20f,0.86f,0.08f);
+   sun(-0.20f,0.86f,0.08f);
+
 }
 glPopMatrix();
 
@@ -1087,29 +1088,24 @@ void keyboard(unsigned char key, int x, int y) {
 
  if(key=='N')
     {
-     if(scene!=2){
-        mode=1;
+      mode=1;
       sunposition=-1.2f;
       sunset=0;
       glutPostRedisplay();
-     }
     }
+
     if(key=='D')
     {
-      if(scene!=2){
-        mode=0;
+      mode=0;
       sunposition=0.0f;
       sunset=1;
       glutPostRedisplay();
-      }
     }
 
    if(key=='E')
     {
-      if(scene!=2){
-        mode=3;
+      mode=3;
       glutPostRedisplay();
-      }
     }
 
     if(key=='P'){
@@ -1167,7 +1163,7 @@ void bridgelightOn(){
         glEnd();
 
 
-        glLineWidth(4); //line in boat 1
+        glLineWidth(4);
         glBegin(GL_LINES);
          glColor3ub(246, 226, 86);
         glVertex2f(-0.85f,  0.39f);
@@ -4174,6 +4170,8 @@ if(scene==1)   {
 
 }
 if(scene==2){
+        sunposition=0.0f;
+      sunset=1;
 DrawRiverMadaripur(-1.0f, -1.0f,-0.35f, -1.0f,-0.35f, 0.0f,-1.0f, 0.0f);
 madaripur();
 DrawSky(-1.0f, 0.0f,1.0f, 0.0f,1.0f,1.0f,-1.0f, 1.0f);
@@ -4196,6 +4194,10 @@ BridgeMadaripur();
 
 void display()
 {
+
+if(scene>=2){
+	mode=0;
+}
 
 glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 DrawSky(-1.0f, -0.28f,1.0f, -0.28f,1.0f, 1.0f,-1.0f, 1.0f);
@@ -4235,7 +4237,6 @@ int main(int argc, char** argv)
     glutCreateWindow("OpenGL Setup Test");
     glutDisplayFunc(display);
 	glutSpecialFunc(specialKeys);
-
     glutKeyboardFunc(keyboard);
     glutTimerFunc(100, updatecloudone, 0);
     glutTimerFunc(100, updatesun, 0);
@@ -4248,11 +4249,9 @@ int main(int argc, char** argv)
     glutTimerFunc(100, runleftbirds, 0);
     glutTimerFunc(200, runthleftboat, 0);
     glutTimerFunc(100, runthrightboat, 0);
-
-
 glutTimerFunc(100, Busupdate, 0);
 glutTimerFunc(100, Heliupdate, 0);
-    glutMainLoop();
+glutMainLoop();
     return 0;
 }
 
