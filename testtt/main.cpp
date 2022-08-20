@@ -1087,23 +1087,29 @@ void keyboard(unsigned char key, int x, int y) {
 
  if(key=='N')
     {
-      mode=1;
+     if(scene!=2){
+        mode=1;
       sunposition=-1.2f;
       sunset=0;
       glutPostRedisplay();
+     }
     }
     if(key=='D')
     {
-      mode=0;
+      if(scene!=2){
+        mode=0;
       sunposition=0.0f;
       sunset=1;
       glutPostRedisplay();
+      }
     }
 
    if(key=='E')
     {
-      mode=3;
+      if(scene!=2){
+        mode=3;
       glutPostRedisplay();
+      }
     }
 
     if(key=='P'){
@@ -1124,7 +1130,6 @@ void specialKeys(int key, int x, int y) {
           scene++;
           break;
       case GLUT_KEY_UP:
-
 		  sunset=1;
           break;
       case GLUT_KEY_DOWN:
@@ -1134,7 +1139,8 @@ void specialKeys(int key, int x, int y) {
 }
 
 
-void bridgespanpiller(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4){
+void bridgespanpiller(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4)
+{
 
 glBegin(GL_QUADS);
 if(mode==3){
@@ -4128,14 +4134,6 @@ void homeMadaripur()
 
 
 
-
-
-
-
-
-
-
-
 void SelectScene(){
 
 
@@ -4145,7 +4143,7 @@ if(scene==0)
     {
 
 if(!thunderstorm){
-	 drawBoat();
+	drawBoat();
     drawHelicopter();
 }
 
@@ -4162,38 +4160,32 @@ if(!thunderstorm){
         if(sank){
 drawBoatThunderstormSky();
             }
-
-
-
     }
 
 
 if(scene==1)   {
-            Train();
-            car();
-            bus();
-            Bridge();
-            hill();
-			 drawBoat();
+     Train();
+    car();
+    bus();
+    Bridge();
+    hill();
+	drawBoat();
     drawHelicopter();
 
 }
 if(scene==2){
-     DrawRiverMadaripur(-1.0f, -1.0f,-0.35f, -1.0f,-0.35f, 0.0f,-1.0f, 0.0f);
-
-  madaripur();
- DrawSky(-1.0f, 0.0f,1.0f, 0.0f,1.0f,1.0f,-1.0f, 1.0f);
-
+DrawRiverMadaripur(-1.0f, -1.0f,-0.35f, -1.0f,-0.35f, 0.0f,-1.0f, 0.0f);
+madaripur();
+DrawSky(-1.0f, 0.0f,1.0f, 0.0f,1.0f,1.0f,-1.0f, 1.0f);
 homeMadaripur();
 CallTreeMadaripur();
 CallTrainLineMadaripur();
-
 CallRoadMadaripur();
-
 riverTriangleMadaripur();
-
 BridgeMadaripur();
-car();
+//car();
+
+
 }
 
 }
@@ -4216,9 +4208,9 @@ if(mode==0){
 
 if(mode==1){
 
-moon(-0.47f,0.86f,0.07f,1);  //last 1 for moon count
-moon(-0.47f,0.86f,0.06f,2); //      2 ,,
-moon(-0.47f,0.86f,0.045f,3);  //     3 ,,
+moon(-0.47f,0.86f,0.07f,1);
+moon(-0.47f,0.86f,0.06f,2);
+moon(-0.47f,0.86f,0.045f,3);
 CallStar();
 
 }
@@ -4226,9 +4218,10 @@ if(mode==3){
 	CallStarEvening();
 }
 
-//cout<<sunposition<<endl;
+
 SelectScene();
 glFlush();
+
 }
 
 
@@ -4241,7 +4234,7 @@ int main(int argc, char** argv)
     glutInitWindowSize(1000, 800);
     glutCreateWindow("OpenGL Setup Test");
     glutDisplayFunc(display);
-glutSpecialFunc(specialKeys);
+	glutSpecialFunc(specialKeys);
 
     glutKeyboardFunc(keyboard);
     glutTimerFunc(100, updatecloudone, 0);
