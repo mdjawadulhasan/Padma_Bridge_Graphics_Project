@@ -32,10 +32,10 @@ GLfloat Trainposition=0.0f;
 GLfloat Trainspeed=0.005f;
 
 GLfloat Carposition=0.0f;
-GLfloat Carspeed=0.01f;
+GLfloat Carspeed=0.010f;
 
 GLfloat Busposition=0.0f;
-GLfloat Busspeed=0.005f;
+GLfloat Busspeed=0.009f;
 
 GLfloat Helicopterposition=0.0f;
 GLfloat Helicopterspeed=0.005f;
@@ -56,6 +56,7 @@ GLfloat rboatthpos=0.0f;
 GLfloat lboatthspeed=0.01f;
 GLfloat rboatthspeed=0.01f;
 
+int trafficmode=0;
 int sunset=-1;
 int mode =0;
 int scene =0;
@@ -1112,6 +1113,21 @@ void keyboard(unsigned char key, int x, int y) {
         pinak=true;
         glutPostRedisplay();
     }
+	if(key=='R'){
+		Busspeed=0;
+		Carspeed=0;
+		trafficmode=1;
+	}
+	if(key=='G'){
+		trafficmode=0;
+		Busspeed=0.009f;
+		Carspeed=0.010f;
+	}
+	if(key=='Y'){
+		Busspeed=0.002f;
+		Carspeed=0.002F;
+		trafficmode=2;
+	}
 
 
 }
@@ -3237,11 +3253,24 @@ void CallRoadMadaripur()
         glVertex2f(0.54f,0.15f);
         glEnd();
 
-        Trafi_LightMadaripur(0.555f,0.13f,0.013f,255,0,0);
 
-        Trafi_LightMadaripur(0.555f,0.09f,0.013f,255,255,0);
+        if(trafficmode==0){
+		Trafi_LightMadaripur(0.555f,0.13f,0.013f,239,112,112);//r
+        Trafi_LightMadaripur(0.555f,0.09f,0.018f,0,204,0);//g
+        Trafi_LightMadaripur(0.555f,0.05f,0.013f,237,240,127);//y
+		}
+		else if (trafficmode==1){
+		Trafi_LightMadaripur(0.555f,0.13f,0.018f,255,0,0);//r
+        Trafi_LightMadaripur(0.555f,0.09f,0.013f,122,239,169);//g
+        Trafi_LightMadaripur(0.555f,0.05f,0.013f,237,240,127);//y
+		}
+		else if(trafficmode==2){
+		Trafi_LightMadaripur(0.555f,0.13f,0.013f,239,112,112);//r
+        Trafi_LightMadaripur(0.555f,0.09f,0.013f,122,239,169);//g
+        Trafi_LightMadaripur(0.555f,0.05f,0.018f,255,255,0);//y
+		}
 
-        Trafi_LightMadaripur(0.555f,0.05f,0.013f,39,118,37);
+
 
 
        glLineWidth(5);
@@ -4180,8 +4209,16 @@ CallTreeMadaripur();
 CallTrainLineMadaripur();
 CallRoadMadaripur();
 riverTriangleMadaripur();
-BridgeMadaripur();
+
 //car();
+
+glPushMatrix();
+glTranslatef(0.0f,-0.45f,0.0f);
+car();
+bus();
+glPopMatrix();
+BridgeMadaripur();
+
 
 
 }
