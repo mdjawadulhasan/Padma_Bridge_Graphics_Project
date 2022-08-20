@@ -1114,10 +1114,10 @@ void keyboard(unsigned char key, int x, int y) {
         glutPostRedisplay();
     }
 	if(key=='R'){
-		Busspeed=0;
-		Carspeed=0;
+
 		trafficmode=1;
 	}
+
 	if(key=='G'){
 		trafficmode=0;
 		Busspeed=0.009f;
@@ -4217,7 +4217,13 @@ glTranslatef(0.0f,-0.45f,0.0f);
 car();
 bus();
 glPopMatrix();
+glPushMatrix();
+glTranslatef(0.0f,-0.48f,0.0f);
+Train();
+glPopMatrix();
 BridgeMadaripur();
+
+
 
 
 
@@ -4231,7 +4237,18 @@ BridgeMadaripur();
 
 void display()
 {
+    if(trafficmode==1){
+        if(Carposition>=1.35 && Carposition<1.48){
+            Carspeed=0;
+        }
+        if(Busposition<=-0.152 && Busposition>=-0.233){
+            Busspeed=0;
+        }
+    }
 
+
+cout<<"BUS: "<<Busposition<<endl;
+cout<<"CAR: "<<Carposition<<endl;
 if(scene>=2){
 	mode=0;
 }
