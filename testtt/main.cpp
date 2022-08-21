@@ -1,16 +1,12 @@
 #include<windows.h>
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
 #include <GL/glut.h>
-#endif
-
 #include <stdlib.h>
 #define PI          3.141516
 #define PI2          6.28
 #include<math.h>
 #include<bits/stdc++.h>
 using namespace std;
+
 
 GLfloat cloudposition1=0.0f;
 GLfloat cloudspeed1 = 0.01f;
@@ -58,7 +54,7 @@ GLfloat rboatthspeed=0.01f;
 
 int trafficmode=0;
 int sunset=-1;
-int mode =2;
+int mode =0;
 int scene =0;
 int sank=false;
 int pinak=false;
@@ -4393,6 +4389,72 @@ void zebracrs()
 
 }
 
+void RoadSignboad()
+{
+       glLineWidth(15);
+        glBegin(GL_LINES);
+        glColor3ub(214, 122, 54);
+        glVertex2f(-0.13f,-0.9f);
+        glVertex2f(-0.13f,-0.6f);
+        glEnd();
+
+
+
+
+
+       glBegin(GL_QUADS);
+        glColor3ub(166, 88, 28 );
+        glVertex2f(-0.2f,-0.65f);
+        glVertex2f(-0.06f,-0.65f);
+        glVertex2f(-0.06f,-0.57f);
+        glVertex2f(-0.2f,-0.57f);
+        glEnd();
+
+
+
+           glBegin(GL_TRIANGLES);
+        glColor3ub(166, 88, 28 );
+        glVertex2f(-0.06f,-0.65f);
+        glVertex2f(-0.02f,-0.61f);
+        glVertex2f(-0.06f,-0.57f);
+
+
+
+       glEnd();
+
+
+
+
+           glBegin(GL_QUADS);
+        glColor3ub(166, 88, 28 );
+        glVertex2f(-0.2f,-0.75f);
+        glVertex2f(-0.06f,-0.75f);
+        glVertex2f(-0.06f,-0.67f);
+        glVertex2f(-0.2f,-0.67f);
+        glEnd();
+
+
+
+           glBegin(GL_TRIANGLES);
+        glColor3ub(166, 88, 28 );
+        glVertex2f(-0.2f,-0.75f);
+        glVertex2f(-0.24f,-0.71f);
+        glVertex2f(-0.2f,-0.67f);
+
+
+
+       glEnd();
+
+		text(-0.19f, -0.61f, "MADARIPUR");
+		text(-0.17f, -0.64f, "0 K.M");
+
+		text(-0.17f, -0.70f, "Dhaka");
+		text(-0.17f, -0.73f, "107 K.M");
+
+
+}
+
+
 void parktree(){
 glBegin(GL_QUADS);
 glColor3ub(139,69,19);
@@ -4846,15 +4908,14 @@ riverTriangleMadaripur();
 MbridgeLight();
 Bird();
 
-//car();
 
 glPushMatrix();
 glTranslatef(0.0f,-0.45f,0.0f);
 car();
 bus();
 glPopMatrix();
-glPushMatrix();
 
+glPushMatrix();
 glTranslatef(0.0f,-0.48f,0.0f);
 Train();
 glPopMatrix();
@@ -4879,6 +4940,8 @@ glTranslatef(0.7f,-0.62f,0.0f);
 parktree();
 glPopMatrix();
 
+
+RoadSignboad();
 
 
 
