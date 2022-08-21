@@ -4255,7 +4255,257 @@ void homeMadaripur()
 
 }
 
+void park()
+{
 
+
+
+   //Left Last One
+glLineWidth(10.5);
+glBegin(GL_LINES);
+glColor3ub(230,0,0);
+glVertex2f(-0.20f,-0.85f);
+glVertex2f(0.05f,-0.7f);
+glVertex2f(-0.07f,-0.77f);
+glVertex2f(-0.07f,-0.86f);
+glEnd();
+
+
+
+
+glLineWidth(5.5);
+glBegin(GL_LINES);
+glColor3ub(230,0,0);
+glVertex2f(-0.17f,-0.83f);
+glVertex2f(-0.17f,-0.80f);
+glVertex2f(-0.0f,-0.70f);
+glVertex2f(-0.0f,-0.73f);
+glEnd();
+
+
+
+
+//Dolna
+glLineWidth(5);
+glBegin(GL_LINES);
+glColor3ub(0,0,205);
+glVertex2f(0.35f,-0.95f);
+glVertex2f(0.35f,-0.5f);
+glVertex2f(0.1f,-0.95f);
+glVertex2f(0.1f,-0.5f);
+glEnd();
+
+
+
+glLineWidth(3.5);
+glBegin(GL_LINES);
+glColor3ub(0,0,205);
+glVertex2f(0.1f,-0.55f);
+glVertex2f(0.35f,-0.55f);
+glEnd();
+
+
+
+
+glLineWidth(1.0);
+glBegin(GL_LINES);
+glColor3ub(218,165,32);
+glVertex2f(0.20f,-0.84f);
+glVertex2f(0.20f,-0.55f);
+glVertex2f(0.26f,-0.84f);
+glVertex2f(0.26f,-0.55f);
+glEnd();
+
+
+
+
+glBegin(GL_POLYGON);
+glColor3ub(220,20,60);
+glVertex2f(0.18f,-0.84f);
+glVertex2f(0.20f,-0.79f);
+glVertex2f(0.26f,-0.79f);
+glVertex2f(0.28f,-0.84f);
+glEnd();
+
+
+
+
+glBegin(GL_QUADS);
+glColor3ub(0,0,255);
+glVertex2f(0.18f,-0.85f);
+glVertex2f(0.18f,-0.84f);
+glVertex2f(0.28f,-0.84f);
+glVertex2f(0.28f,-0.85f);
+glEnd();
+
+
+
+
+
+//Right Tree
+glBegin(GL_QUADS);
+glColor3ub(139,69,19);
+glVertex2f(0.84f,-0.99f);
+glVertex2f(0.84f,-0.7f);
+glVertex2f(0.88f,-0.7f);
+glVertex2f(0.88f,-0.99f);
+glEnd();
+
+
+
+
+glBegin(GL_TRIANGLES);
+glColor3ub(46, 76, 13);
+glVertex2f(0.74f,-0.7f);
+glVertex2f(0.98f,-0.7f);
+glVertex2f(0.86f,-0.5f);
+glEnd();
+
+
+
+
+glBegin(GL_TRIANGLES);
+glColor3ub(46, 76, 13);
+glVertex2f(0.76f,-0.6f);
+glVertex2f(0.96f,-0.6f);
+glVertex2f(0.86f,-0.4f);
+glEnd();
+
+
+
+
+
+//BENCH
+glBegin(GL_POLYGON);
+glColor3ub(128,0,0);
+glVertex2f(0.45f,-0.8f);
+glVertex2f(0.50f,-0.69f);
+glVertex2f(0.69f,-0.69f);
+glVertex2f(0.75f,-0.8f);
+glEnd();
+
+
+
+
+glBegin(GL_QUADS);
+glColor3ub(160,64,0 );
+glVertex2f(0.45f,-0.82f);
+glVertex2f(0.45f,-0.8f);
+glVertex2f(0.75f,-0.8f);
+glVertex2f(0.75f,-0.82f);
+glEnd();
+
+
+
+
+glBegin(GL_QUADS);
+glColor3ub(123,36,28 );
+glVertex2f(0.50f,-0.88f);
+glVertex2f(0.50f,-0.82f);
+glVertex2f(0.53f,-0.82f);
+glVertex2f(0.53f,-0.88f);
+glEnd();
+
+
+
+
+glBegin(GL_QUADS);
+glColor3ub(123,36,28 );
+glVertex2f(0.67f,-0.88f);
+glVertex2f(0.67f,-0.82f);
+glVertex2f(0.70f,-0.82f);
+glVertex2f(0.70f,-0.88f);
+glEnd();
+
+
+
+
+glFlush();
+}
+
+void zebracrs()
+{
+
+
+
+
+       glLineWidth(8);
+         glBegin(GL_LINES);
+        glColor3ub(255, 255, 255);
+        glVertex2f(0.53f,-0.17f);
+        glVertex2f(0.58f,-0.17f);
+           glEnd();
+
+
+
+          glLineWidth(8);
+         glBegin(GL_LINES);
+        glColor3ub(255, 255, 255);
+        glVertex2f(0.53f,-0.2f);
+        glVertex2f(0.58f,-0.2f);
+           glEnd();
+
+
+
+
+           glLineWidth(8);
+         glBegin(GL_LINES);
+        glColor3ub(255, 255, 255);
+        glVertex2f(0.53f,-0.23f);
+        glVertex2f(0.58f,-0.23f);
+           glEnd();
+
+
+
+            glLineWidth(8);
+         glBegin(GL_LINES);
+        glColor3ub(255, 255, 255);
+        glVertex2f(0.53f,-0.26f);
+        glVertex2f(0.58f,-0.26f);
+           glEnd();
+   glLineWidth(8);
+         glBegin(GL_LINES);
+        glColor3ub(255, 255, 255);
+        glVertex2f(0.53f,-0.29f);
+        glVertex2f(0.58f,-0.29f);
+           glEnd();
+
+
+
+}
+
+void parktree(){
+glBegin(GL_QUADS);
+glColor3ub(139,69,19);
+glVertex2f(0.84f,-0.99f);
+glVertex2f(0.84f,-0.7f);
+glVertex2f(0.88f,-0.7f);
+glVertex2f(0.88f,-0.99f);
+glEnd();
+
+
+
+
+glBegin(GL_TRIANGLES);
+glColor3ub(46, 76, 13);
+glVertex2f(0.74f,-0.7f);
+glVertex2f(0.98f,-0.7f);
+glVertex2f(0.86f,-0.5f);
+glEnd();
+
+
+
+
+glBegin(GL_TRIANGLES);
+glColor3ub(46, 76, 13);
+glVertex2f(0.76f,-0.6f);
+glVertex2f(0.96f,-0.6f);
+glVertex2f(0.86f,-0.4f);
+glEnd();
+
+
+
+}
 
 void MbridgeLight(){
         glLineWidth(4);
@@ -4393,8 +4643,10 @@ callMiniPark();
 homeMadaripur();
 CallTrainLineMadaripur();
 CallRoadMadaripur();
+zebracrs();
 riverTriangleMadaripur();
 MbridgeLight();
+Bird();
 
 //car();
 
@@ -4404,10 +4656,30 @@ car();
 bus();
 glPopMatrix();
 glPushMatrix();
+
 glTranslatef(0.0f,-0.48f,0.0f);
 Train();
 glPopMatrix();
 BridgeMadaripur();
+
+glPushMatrix();
+glScalef(0.6,0.6,0.6);
+glTranslatef(0.5f,-0.68f,0.0f);
+park();
+glPopMatrix();
+
+
+glPushMatrix();
+glScalef(0.6,0.6,0.6);
+glTranslatef(0.4f,-0.62f,0.0f);
+parktree();
+glPopMatrix();
+
+glPushMatrix();
+glScalef(0.6,0.6,0.6);
+glTranslatef(0.7f,-0.62f,0.0f);
+parktree();
+glPopMatrix();
 
 
 
