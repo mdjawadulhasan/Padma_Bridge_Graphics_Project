@@ -2983,219 +2983,7 @@ glEnd();
 
 }
 
-void CallTreeMadaripur()
-{
-     treeMadaripur(0.1f,-0.05f,0.13f,-0.05f,0.13f,0.1f,0.1f,0.1f);
 
-
-      glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.05f,0.07f);
-        glVertex2f(0.19f,0.1f);
-        glVertex2f(0.1f,0.22f);
-
-        glEnd();
-
-
-      glBegin(GL_TRIANGLES);
-        glColor3ub(39,118,37);
-        glVertex2f(0.05f,0.15f);
-        glVertex2f(0.19f,0.14f);
-        glVertex2f(0.11f,0.28f);
-
-        glEnd();
-
-
-          glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.06f,0.23f);
-        glVertex2f(0.17f,0.23f);
-        glVertex2f(0.1f,0.31f);
-
-        glEnd();
-
-        //tree 2
-
-          glPushMatrix();
-          float k=-0.15;
-          float y=0.0f;
-        for(int i=0;i<4;i++)
-        {
-
-
-
-        glTranslatef(k,y,0.0f);
-         treeMadaripur(0.1f,-0.05f,0.13f,-0.05f,0.13f,0.1f,0.1f,0.1f);
-
- glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.05f,0.07f);
-        glVertex2f(0.19f,0.1f);
-        glVertex2f(0.1f,0.22f);
-
-        glEnd();
-
-
-      glBegin(GL_TRIANGLES);
-        glColor3ub(39,118,37);
-        glVertex2f(0.05f,0.15f);
-        glVertex2f(0.19f,0.14f);
-        glVertex2f(0.11f,0.28f);
-
-        glEnd();
-
-
-          glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.06f,0.23f);
-        glVertex2f(0.17f,0.23f);
-        glVertex2f(0.1f,0.31f);
-
-        glEnd();
-if(i>=1)
-{
-
-    k=0.1;
-    y=-0.02f;
-}
-
-        }
-        glPopMatrix();
-
-
-
-
-        //tree 3
-          glPushMatrix();
-
-        glTranslatef(0.85f,-0.05f,0.0f);
-         treeMadaripur(0.1f,-0.05f,0.13f,-0.05f,0.13f,0.1f,0.1f,0.1f);
-
- glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.05f,0.07f);
-        glVertex2f(0.19f,0.1f);
-        glVertex2f(0.1f,0.22f);
-
-        glEnd();
-
-
-      glBegin(GL_TRIANGLES);
-        glColor3ub(39,118,37);
-        glVertex2f(0.05f,0.15f);
-        glVertex2f(0.19f,0.14f);
-        glVertex2f(0.11f,0.28f);
-
-        glEnd();
-
-
-          glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.06f,0.23f);
-        glVertex2f(0.17f,0.23f);
-        glVertex2f(0.1f,0.31f);
-
-        glEnd();
- glPopMatrix();
-
-  glPushMatrix();
-
-        glTranslatef(0.85f,-0.05f,0.0f);
-         treeMadaripur(0.1f,-0.05f,0.13f,-0.05f,0.13f,0.1f,0.1f,0.1f);
-
- glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.05f,0.07f);
-        glVertex2f(0.19f,0.1f);
-        glVertex2f(0.1f,0.22f);
-
-        glEnd();
-
-
-      glBegin(GL_TRIANGLES);
-        glColor3ub(39,118,37);
-        glVertex2f(0.05f,0.15f);
-        glVertex2f(0.19f,0.14f);
-        glVertex2f(0.11f,0.28f);
-
-        glEnd();
-
-
-          glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.06f,0.23f);
-        glVertex2f(0.17f,0.23f);
-        glVertex2f(0.1f,0.31f);
-
-        glEnd();
- glPopMatrix();
-
-
- //tree 4
-  glPushMatrix();
-
-        glTranslatef(0.07f,-0.05f,0.0f);
-         treeMadaripur(0.1f,-0.05f,0.13f,-0.05f,0.13f,0.1f,0.1f,0.1f);
-
- glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.05f,0.07f);
-        glVertex2f(0.19f,0.1f);
-        glVertex2f(0.1f,0.22f);
-
-        glEnd();
-
-
-      glBegin(GL_TRIANGLES);
-        glColor3ub(39,118,37);
-        glVertex2f(0.05f,0.15f);
-        glVertex2f(0.19f,0.14f);
-        glVertex2f(0.11f,0.28f);
-
-        glEnd();
-
-
-          glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.06f,0.23f);
-        glVertex2f(0.17f,0.23f);
-        glVertex2f(0.1f,0.31f);
-
-        glEnd();
- glPopMatrix();
-
-  glPushMatrix();
-
-        glTranslatef(0.85f,-0.05f,0.0f);
-         treeMadaripur(0.1f,-0.05f,0.13f,-0.05f,0.13f,0.1f,0.1f,0.1f);
-
- glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.05f,0.07f);
-        glVertex2f(0.19f,0.1f);
-        glVertex2f(0.1f,0.22f);
-
-        glEnd();
-
-
-      glBegin(GL_TRIANGLES);
-        glColor3ub(39,118,37);
-        glVertex2f(0.05f,0.15f);
-        glVertex2f(0.19f,0.14f);
-        glVertex2f(0.11f,0.28f);
-
-        glEnd();
-
-
-          glBegin(GL_TRIANGLES);
-        glColor3ub(78,148,45);
-        glVertex2f(0.06f,0.23f);
-        glVertex2f(0.17f,0.23f);
-        glVertex2f(0.1f,0.31f);
-
-        glEnd();
- glPopMatrix();
-}
 
 
 
@@ -3440,6 +3228,318 @@ void LineInHomeMadaripur(float x1,float y1,float x2,float y2, int a,int b,int c)
 
 
 }
+
+
+void MiniPark(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4)
+{
+
+
+
+
+
+glBegin(GL_QUADS);
+glColor3ub(119,68,34);
+glVertex2f(x1,y1);
+glVertex2f(x2,y2);
+glVertex2f(x3,y3);
+glVertex2f(x4,y4);
+glEnd();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+void TreePata(float p, float q,float r)
+{
+    int i;
+    GLfloat p1=p; GLfloat q1=q ; GLfloat r1 =r;
+    int tringle2=40;
+    GLfloat tp2 =2.0f * PI  ;
+    glBegin (GL_TRIANGLE_FAN);
+    glColor3ub (78, 132, 20 );
+    glVertex2f (p1,q1);
+    for(i= 0;i<=tringle2; i++)
+    {
+        glVertex2f (
+                    p1+(r1*cos(i*tp2/tringle2)),
+                    q1+(r1*sin(i*tp2/tringle2))
+                    );
+    }
+    glEnd ();
+}
+
+
+
+
+void TreeShado(GLfloat x, GLfloat y, GLfloat width,
+                              GLfloat height)
+{
+
+
+
+    int i;
+  int triangleAmount = 255;
+  glPushMatrix();
+  glTranslatef(x, y, 0);
+  glPushMatrix();
+  glScalef(width, height, 0);
+  glBegin(GL_TRIANGLE_FAN);
+   glColor3ub(48, 99, 3);
+
+
+
+ glVertex2f(0, 0);
+  for (i = 0; i <= triangleAmount; i++) {
+    glVertex2f((1 * cos(i * PI2 / triangleAmount)),
+               (1 * sin(i * PI2 / triangleAmount)));
+  }
+  glEnd();
+  glPopMatrix();
+  glPopMatrix();
+}
+
+
+
+void banchLine(float x1,float y1,float x2,float y2,int l)
+{
+     glLineWidth(l);
+         glBegin(GL_LINES);
+        glColor3ub(0, 0, 0);
+        glVertex2f(x1,y1);
+        glVertex2f(x2,y2);
+           glEnd();
+
+
+
+
+}
+
+
+
+void banchLine1(float x1,float y1,float x2,float y2,int l)
+{
+     glLineWidth(l);
+         glBegin(GL_LINES);
+        glColor3ub(230, 138, 83);
+        glVertex2f(x1,y1);
+        glVertex2f(x2,y2);
+           glEnd();
+
+
+
+
+}
+void banchLine2(float x1,float y1,float x2,float y2,int l)
+{
+     glLineWidth(l);
+         glBegin(GL_LINES);
+        glColor3ub(200, 139, 74);
+        glVertex2f(x1,y1);
+        glVertex2f(x2,y2);
+           glEnd();
+
+
+
+
+}
+
+
+
+
+void LampLight(float p, float q,float r)
+{
+    int i;
+    GLfloat p1=p; GLfloat q1=q ; GLfloat r1 =r;
+    int tringle2=40;
+    GLfloat tp2 =2.0f * PI  ;
+    glBegin (GL_TRIANGLE_FAN);
+    glColor3ub (255, 255, 255 );
+    glVertex2f (p1,q1);
+    for(i= 0;i<=tringle2; i++)
+    {
+        glVertex2f (
+                    p1+(r1*cos(i*tp2/tringle2)),
+                    q1+(r1*sin(i*tp2/tringle2))
+                    );
+    }
+    glEnd ();
+}
+
+
+
+void lamp()
+{
+      glBegin(GL_QUADS);
+        glColor3ub(0, 0, 0);
+        glVertex2f(-0.3f,-0.05f);
+        glVertex2f(-0.24f,-0.05f);
+        glVertex2f(-0.26f,-0.03f);
+        glVertex2f(-0.28f,-0.03f);
+        glEnd();
+
+
+
+          glLineWidth(8);
+         glBegin(GL_LINES);
+        glColor3ub(0,0,0);
+        glVertex2f(-0.27f,-0.03f);
+        glVertex2f(-0.27f,0.22f);
+           glEnd();
+
+
+
+
+               glBegin(GL_QUADS);
+        glColor3ub(0, 0, 0);
+        glVertex2f(-0.275f,0.22f);
+        glVertex2f(-0.265f,0.22f);
+        glVertex2f(-0.262f,0.24f);
+        glVertex2f(-0.278f,0.24f);
+        glEnd();
+
+
+
+
+
+
+
+
+
+}
+
+
+
+void callMiniPark()
+{
+TreeShado(0.14f,-0.04f,0.1f,0.03f);
+   MiniPark(0.12f,-0.05f,0.16f,-0.05f,0.16f,0.14f,0.12f,0.14f);
+   TreePata(0.12f,0.18f,0.08f);
+   TreePata(0.16f,0.18f,0.08f);
+   TreePata(0.14f,0.25f,0.07f);
+    banchLine(0.0f,-0.04f,0.0f,0.14f,5);
+
+
+
+banchLine(-0.18f,-0.04f,-0.18f,0.14f,5);
+
+
+
+banchLine(-0.21f,-0.06f,-0.21f,0.03f,5);
+banchLine(0.03f,-0.06f,0.03f,0.03f,5);
+
+
+
+banchLine(-0.21f,-0.04f,-0.18f,-0.02f,3);
+
+
+
+banchLine(0.0f,-0.02f,0.03f,-0.04f,3);
+
+
+
+banchLine1(-0.2f,0.11f,0.02f,0.11f,12);
+
+
+
+banchLine1(-0.2f,0.07f,0.02f,0.07f,12);
+
+
+
+
+TreeShado(-0.27f,-0.05f,0.04f,0.02f);
+      glBegin(GL_QUADS);
+        glColor3ub(230, 138, 83);
+        glVertex2f(-0.22f,0.0f);
+        glVertex2f(0.04f,0.0f);
+        glVertex2f(0.04f,0.05f);
+        glVertex2f(-0.22f,0.05f);
+
+
+
+       glEnd();
+
+
+
+       banchLine2(-0.22f,0.0f,0.04f,0.0f,8);
+        lamp();
+
+
+
+        LampLight(-0.27f,0.26f,0.029f);
+
+
+
+
+}
+
+
+
+
+
+void windmill()
+{
+       glLineWidth(15);
+         glBegin(GL_LINES);
+        glColor3ub(255,255,255);
+        glVertex2f(0.05f,-0.02f);
+        glVertex2f(0.05f,0.35f);
+           glEnd();
+
+
+
+        LampLight(0.05f,0.35f,0.025f);
+
+
+
+
+     glBegin(GL_TRIANGLES);
+    glColor3ub(255, 255, 255);
+    glVertex2f(0.06f, 0.37f);
+    glVertex2f(0.2f, 0.22f);
+    glVertex2f(0.025f, 0.34f);
+
+
+
+     glEnd ();
+
+
+
+        glBegin(GL_TRIANGLES);
+    glColor3ub(255, 255, 255);
+    glVertex2f(0.06f, 0.34f);
+    glVertex2f(0.15f, 0.63f);
+    glVertex2f(0.025f, 0.35f);
+
+
+
+     glEnd ();
+
+
+
+
+        glBegin(GL_TRIANGLES);
+    glColor3ub(255, 255, 255);
+    glVertex2f(0.06f, 0.3f);
+    glVertex2f(-0.15f, 0.35f);
+    glVertex2f(0.025f, 0.35f);
+
+
+
+     glEnd ();
+
+
+}
+
 void homeMadaripur()
 {
 
@@ -4157,6 +4257,88 @@ void homeMadaripur()
 
 
 
+void MbridgeLight(){
+        glLineWidth(4);
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.9f, -0.2f);
+        glVertex2f(-0.9f, -0.02f);
+        glEnd();
+
+
+
+       glLineWidth(4);
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.9f,  -0.02f);
+        glVertex2f(-0.88f, -0.02f);
+        glEnd();
+
+
+
+
+
+       glLineWidth(4);
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.85f, -0.2f);
+        glVertex2f(-0.85f, -0.02f);
+        glEnd();
+
+
+
+       glLineWidth(4);
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.85f,  -0.02f);
+        glVertex2f(-0.87f, -0.02f);
+        glEnd();
+
+
+
+
+
+
+
+
+
+         glLineWidth(4);
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.5f, -0.2f);
+        glVertex2f(-0.5f, -0.02f);
+        glEnd();
+
+
+
+       glLineWidth(4);
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.5f,  -0.02f);
+        glVertex2f(-0.48f, -0.02f);
+        glEnd();
+
+
+
+
+
+       glLineWidth(4);
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.45f, -0.2f);
+        glVertex2f(-0.45f, -0.02f);
+        glEnd();
+
+
+
+       glLineWidth(4);
+        glBegin(GL_LINES);
+        glColor3ub(105,105,105);
+        glVertex2f(-0.45f,  -0.02f);
+        glVertex2f(-0.47f, -0.02f);
+        glEnd();
+}
+
 
 
 void SelectScene(){
@@ -4202,13 +4384,17 @@ if(scene==2){
         sunposition=0.0f;
       sunset=1;
 DrawRiverMadaripur(-1.0f, -1.0f,-0.35f, -1.0f,-0.35f, 0.0f,-1.0f, 0.0f);
+
 madaripur();
 DrawSky(-1.0f, 0.0f,1.0f, 0.0f,1.0f,1.0f,-1.0f, 1.0f);
+windmill();
+
+callMiniPark();
 homeMadaripur();
-CallTreeMadaripur();
 CallTrainLineMadaripur();
 CallRoadMadaripur();
 riverTriangleMadaripur();
+MbridgeLight();
 
 //car();
 
@@ -4237,6 +4423,7 @@ BridgeMadaripur();
 
 void display()
 {
+
     if(trafficmode==1){
         if(Carposition>=1.35 && Carposition<1.48){
             Carspeed=0;
@@ -4247,8 +4434,7 @@ void display()
     }
 
 
-cout<<"BUS: "<<Busposition<<endl;
-cout<<"CAR: "<<Carposition<<endl;
+
 if(scene>=2){
 	mode=0;
 }
