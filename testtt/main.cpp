@@ -58,11 +58,23 @@ GLfloat rboatthspeed=0.01f;
 
 int trafficmode=0;
 int sunset=-1;
-int mode =0;
+int mode =2;
 int scene =0;
 int sank=false;
 int pinak=false;
 int thunderstorm=false;
+
+void text(float x, float y, char *string)
+{
+    glColor3f(1.0, 1.0, 1.0);
+    glRasterPos2f(x, y);
+    int len, i;
+    len = (int)strlen(string);
+    for (i = 0; i < len; i++)
+    {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, string[i]);
+    }
+}
 
 void updatesun(int value) {
 
@@ -1419,6 +1431,8 @@ void drawBigBoat()
             glVertex2f(-0.89f, -0.422f);
             glEnd();
 
+			text(-0.87f, -0.57f, "PINAK-6");
+
 
 }
 
@@ -2546,7 +2560,7 @@ void PlaneRun()
 
 
 glPushMatrix();
-glTranslatef(Helicopterposition,0.2f,0.0f);
+glTranslatef(Helicopterposition,0.6f,0.0f);
 glScalef(0.6,0.6,0.6);
 
 glBegin(GL_QUADS);
@@ -3330,8 +3344,11 @@ void LampLight(float p, float q,float r)
 
 
 
+
 void lamp()
 {
+
+
       glBegin(GL_QUADS);
         glColor3ub(0, 0, 0);
         glVertex2f(-0.3f,-0.05f);
@@ -4898,6 +4915,7 @@ DrawRiver(-1.0f, -1.0f,1.0f, -1.0f,1.0f, -0.20f,-1.0f, -0.20f);
 cloud();
 if(mode==0){
     Bird();
+
 }
 
 
@@ -4954,7 +4972,6 @@ SelectScene();
 glFlush();
 
 }
-
 
 
 
