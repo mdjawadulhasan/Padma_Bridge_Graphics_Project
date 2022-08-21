@@ -78,6 +78,17 @@ void text(float x, float y, char *string)
     }
 }
 
+void text2(float x, float y, char *string)
+{
+    glColor3f(1.0, 1.0, 1.0);
+    glRasterPos2f(x, y);
+    int len, i;
+    len = (int)strlen(string);
+    for (i = 0; i < len; i++)
+    {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, string[i]);
+    }
+}
 
 
 
@@ -1040,6 +1051,8 @@ drawRiverElipsis(0.7f,-0.360f,0.15f,0.01f);
 
 
 }
+
+int info=1;
 void keyboard(unsigned char key, int x, int y) {
 
 
@@ -1083,6 +1096,13 @@ void keyboard(unsigned char key, int x, int y) {
 		Busspeed=0.002f;
 		Carspeed=0.002F;
 		trafficmode=2;
+	}
+
+	if(key=='I'){
+
+    info++;
+
+
 	}
 
 
@@ -4922,8 +4942,12 @@ void MbridgeLight(){
 
 void SelectScene(){
 
-cout<<rainpos<<endl;
+//cout<<rainpos<<endl;
 
+if(info%2==0){
+        text2(-0.90f, 0.80f, "5 August 2014");
+        text2(-0.90f, 0.70f, "More than 100 feared dead");
+}
 
 if(scene==0)
     {
@@ -4938,15 +4962,18 @@ if(!thunderstorm){
             glTranslatef(pinakposition,0.0f,0.0f);
             drawBigBoat();
             glPopMatrix();
+            text2(-0.90f, 0.80f, "4 August 2014");
             }
 
 
 
 
         if(sank){
+
 drawBoatThunderstormSky();
 if(mode==2){
     rain();
+    text2(-0.90f, 0.80f, "4 August 2014, 11:00 am");
 }
             }
     }
@@ -5028,6 +5055,10 @@ RoadSignboad();
 
 void display()
 {
+
+
+
+
 
     if(trafficmode==1){
         if(Carposition>=1.35 && Carposition<1.48){
