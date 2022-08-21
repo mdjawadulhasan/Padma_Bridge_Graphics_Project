@@ -4,7 +4,9 @@
 #define PI          3.141516
 #define PI2          6.28
 #include<math.h>
+#include <fstream>
 #include<bits/stdc++.h>
+#include<mmsystem.h>
 using namespace std;
 
 
@@ -1061,6 +1063,7 @@ void keyboard(unsigned char key, int x, int y) {
       mode=1;
       sunposition=-1.2f;
       sunset=0;
+      PlaySound(TEXT("night.wav"),NULL,SND_ASYNC|SND_FILENAME|SND_LOOP);
       glutPostRedisplay();
     }
 
@@ -1070,11 +1073,13 @@ void keyboard(unsigned char key, int x, int y) {
       sunposition=0.0f;
       sunset=1;
       glutPostRedisplay();
+
     }
 
    if(key=='E')
     {
       mode=3;
+
       glutPostRedisplay();
     }
 
@@ -1091,6 +1096,7 @@ void keyboard(unsigned char key, int x, int y) {
 		trafficmode=0;
 		Busspeed=0.009f;
 		Carspeed=0.010f;
+		PlaySound(TEXT("city.wav"),NULL,SND_ASYNC|SND_FILENAME|SND_LOOP);
 	}
 	if(key=='Y'){
 		Busspeed=0.002f;
@@ -1102,9 +1108,17 @@ void keyboard(unsigned char key, int x, int y) {
 
     info++;
 
-
+	}
+	if(key=='H'){
+        PlaySound(TEXT("horn.wav"),NULL,SND_ASYNC|SND_FILENAME|SND_LOOP);
 	}
 
+     if(key=='Z'){
+        PlaySound(TEXT("soundone.wav"),NULL,SND_ASYNC|SND_FILENAME|SND_LOOP);
+     }
+	 if(key=='x'){
+	 	PlaySound(TEXT("scene bridge.wav"),NULL,SND_ASYNC|SND_FILENAME|SND_LOOP);
+	 }
 
 }
 
@@ -5055,7 +5069,7 @@ RoadSignboad();
 
 void display()
 {
-
+cout<<mode<<endl;
 
 
 
@@ -5094,6 +5108,7 @@ CallStar();
 
 }
 if(mode==2){
+
 
 glPushMatrix();
 glTranslatef(0.1f,0.0f,0.0f);
@@ -5166,6 +5181,9 @@ int main(int argc, char** argv)
     glutTimerFunc(100, Heliupdate, 0);
     glutTimerFunc(100, stormcall, 0);
     glutTimerFunc(100, raineffect, 0);
+
+
+
     glutMainLoop();
     return 0;
 }

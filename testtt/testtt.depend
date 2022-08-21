@@ -235,10 +235,12 @@
 	<_mingw.h>
 	<stddef.h>
 
-1661122049 source:c:\users\jawad\desktop\cg project\testtt\main.cpp
+1661123606 source:c:\users\jawad\desktop\cg project\testtt\main.cpp
 	<windows.h>
 	<GL/glut.h>
 	<stdlib.h>
 	<math.h>
+	<fstream>
 	<bits/stdc++.h>
+	<mmsystem.h>
 
