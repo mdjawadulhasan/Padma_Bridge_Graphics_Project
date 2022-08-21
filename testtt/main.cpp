@@ -2537,95 +2537,136 @@ glPopMatrix();
 }
 
 
-void drawHelicopter()
+
+
+
+void PlaneRun()
 {
 
 
 
 glPushMatrix();
-glTranslatef(Helicopterposition,0.0f,0.0f);
-    glBegin(GL_QUADS);
-glColor3f(0.0f,0.0f,0.0f);
-glVertex2f(0.69f,0.65f);
-glVertex2f(0.69f,0.6f);
-glVertex2f(0.9f,0.6f);
-glVertex2f(0.9f,0.65f); //helicopter body
+glTranslatef(Helicopterposition,0.2f,0.0f);
+glScalef(0.6,0.6,0.6);
+
+glBegin(GL_QUADS);
+glColor3f(0.0f,0.0f,1.0f);
+
+
+
+glVertex2f(0.29f,0.3f);
+glVertex2f(0.29f,0.35f);
+glVertex2f(0.28f,0.31f);
+glVertex2f(0.28f,0.3f); //plane front
+
+
+
+glEnd();
+glBegin(GL_QUADS);
+glColor3f(0.0f,0.0f,1.0f);
+
+
+
+glVertex2f(0.29f,0.35f);
+glVertex2f(0.29f,0.3f);
+glVertex2f(0.5f,0.3f);
+glVertex2f(0.5f,0.35f); //plane body
+
+
 
 glEnd();
 
-glBegin(GL_QUADS);
-glColor3f(1.0f,0.0f,0.0f);
 
-glVertex2f(0.69f,0.65f);
-glVertex2f(0.8f,0.65f);
-glVertex2f(0.77,0.7f);
-glVertex2f(0.73f,0.7f); //helicopter head
+
+glBegin(GL_QUADS);
+glColor3f(0.0f,0.0f,1.0f);
+
+
+
+glVertex2f(0.29f,0.35f);
+glVertex2f(0.4f,0.35f);
+glVertex2f(0.37f,0.39f);
+glVertex2f(0.33f,0.39f); //helicopter head
+
+
 
 glEnd();
 
-glBegin(GL_QUADS);
-glColor3f(1.0f,0.0f,0.0f);
 
-glVertex2f(0.9f,0.65f);
-glVertex2f(0.9,0.7f);
-glVertex2f(0.87f,0.7f);
-glVertex2f(0.87f,0.65f);
+
+glBegin(GL_QUADS);
+glColor3f(0.0f,0.0f,1.0f);
+
+
+
+glVertex2f(0.5f,0.35f);
+glVertex2f(0.5f,0.4f);
+glVertex2f(0.49f,0.4f);
+glVertex2f(0.47f,0.35f);
 //helicopter tail
 glEnd();
 
-glLineWidth(2);
+
+
+glLineWidth(10);
 glBegin(GL_LINES);
-glColor3f(0.0f,0.0f,0.0f);
-
-glVertex2f(0.75f,0.7f);
-glVertex2f(0.75,0.75f);
-
-//helicopter fan
-glEnd();
-
-glLineWidth(5);
-glBegin(GL_LINES);
-glColor3f(0.0f,0.0f,0.0f);
-
-glVertex2f(0.67f,0.73f);
-glVertex2f(0.82f,0.73f);
-
-//helicopter fan
-glEnd();
-
-glLineWidth(2);
-glBegin(GL_LINES);
-glColor3f(0.0f,0.0f,0.0f);
-
-glVertex2f(0.75f,0.6f);
-glVertex2f(0.75f,0.57f); //lowerpart
-glEnd();
-
-glLineWidth(2);
-glBegin(GL_LINES);
-glColor3f(0.0f,0.0f,0.0f);
-
-glVertex2f(0.77f,0.6f);
-glVertex2f(0.77f,0.57f); //lowerpart
-glEnd();
-
-glLineWidth(2);
-glBegin(GL_LINES);
-glColor3f(0.0f,0.0f,0.0f);
-
-glVertex2f(0.72f,0.57f);
-glVertex2f(0.79f,0.57f); //lowerpart
-glEnd();
-
-glBegin(GL_QUADS);
 glColor3f(1.0f,1.0f,1.0f);
 
-glVertex2f(0.75f,0.68f);
-glVertex2f(0.75,0.62f);
-glVertex2f(0.76f,0.62f);
-glVertex2f(0.76f,0.68f);
 
+
+glVertex2f(0.32f,0.35f);
+glVertex2f(0.32f,0.32f);
+
+
+
+//plane window
 glEnd();
+
+
+
+glLineWidth(10);
+glBegin(GL_LINES);
+glColor3f(1.0f,1.0f,1.0f);
+
+
+
+glVertex2f(0.35f,0.35f);
+glVertex2f(0.35f,0.32f);
+
+
+
+//plane window
+glEnd();
+
+
+
+glLineWidth(10);
+glBegin(GL_LINES);
+glColor3f(1.0f,1.0f,1.0f);
+
+
+
+glVertex2f(0.38f,0.35f);
+glVertex2f(0.38f,0.32f);
+
+
+
+//plane window
+glEnd();
+glBegin(GL_QUADS);
+glColor3f(0.0f,0.0f,0.0f);
+
+
+
+glVertex2f(0.4f,0.33f);
+glVertex2f(0.45f,0.27f);
+glVertex2f(0.49f,0.27f);
+glVertex2f(0.45f,0.33f);
+//helicopter tail
+glEnd();
+glFlush();
+
+
 
 glPopMatrix();
 }
@@ -3398,59 +3439,8 @@ TreeShado(-0.27f,-0.05f,0.04f,0.02f);
 
 
 
-void windmill()
-{
-       glLineWidth(15);
-         glBegin(GL_LINES);
-        glColor3ub(255,255,255);
-        glVertex2f(0.05f,-0.02f);
-        glVertex2f(0.05f,0.35f);
-           glEnd();
 
 
-
-        LampLight(0.05f,0.35f,0.025f);
-
-
-
-
-     glBegin(GL_TRIANGLES);
-    glColor3ub(255, 255, 255);
-    glVertex2f(0.06f, 0.37f);
-    glVertex2f(0.2f, 0.22f);
-    glVertex2f(0.025f, 0.34f);
-
-
-
-     glEnd ();
-
-
-
-        glBegin(GL_TRIANGLES);
-    glColor3ub(255, 255, 255);
-    glVertex2f(0.06f, 0.34f);
-    glVertex2f(0.15f, 0.63f);
-    glVertex2f(0.025f, 0.35f);
-
-
-
-     glEnd ();
-
-
-
-
-        glBegin(GL_TRIANGLES);
-    glColor3ub(255, 255, 255);
-    glVertex2f(0.06f, 0.3f);
-    glVertex2f(-0.15f, 0.35f);
-    glVertex2f(0.025f, 0.35f);
-
-
-
-     glEnd ();
-
-
-}
 
 void homeMadaripur()
 {
@@ -4792,7 +4782,7 @@ if(scene==0)
 
 if(!thunderstorm){
 	drawBoat();
-    drawHelicopter();
+   PlaneRun();
 }
 
         if(pinak){
@@ -4818,7 +4808,7 @@ if(scene==1)   {
     Bridge();
 
 	drawBoat();
-    drawHelicopter();
+   PlaneRun();
 
 }
 if(scene==2){
@@ -4828,7 +4818,7 @@ DrawRiverMadaripur(-1.0f, -1.0f,-0.35f, -1.0f,-0.35f, 0.0f,-1.0f, 0.0f);
 
 madaripur();
 DrawSky(-1.0f, 0.0f,1.0f, 0.0f,1.0f,1.0f,-1.0f, 1.0f);
-windmill();
+
 
 callMiniPark();
 homeMadaripur();
