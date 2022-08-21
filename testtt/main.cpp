@@ -55,6 +55,8 @@ GLfloat rboatthspeed=0.01f;
 GLfloat rainspeed=0.01f;
 GLfloat rainpos=0.0f;
 
+double rainX = -1.0,rainY;
+
 
 int trafficmode=0;
 int sunset=-1;
@@ -4816,7 +4818,7 @@ void rain(){
             {
                 glLineWidth(1);
                 glBegin(GL_LINES);
-                glColor3ub(230,230,250);
+                glColor3f(1.0f,1.0f,1.0f);
                 glVertex2f(j,i);
                 glVertex2f(j,i+0.04);
                 glEnd();
@@ -4943,6 +4945,9 @@ if(!thunderstorm){
 
         if(sank){
 drawBoatThunderstormSky();
+if(mode==2){
+    rain();
+}
             }
     }
 
