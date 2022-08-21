@@ -52,6 +52,10 @@ GLfloat rboatthpos=0.0f;
 GLfloat lboatthspeed=0.01f;
 GLfloat rboatthspeed=0.01f;
 
+GLfloat rainspeed=0.01f;
+GLfloat rainpos=0.0f;
+
+
 int trafficmode=0;
 int sunset=-1;
 int mode =0;
@@ -71,6 +75,33 @@ void text(float x, float y, char *string)
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, string[i]);
     }
 }
+
+
+
+
+void raineffect(int value){
+     if(rainpos <-0.5)
+       {
+            rainpos = 0.0f;
+       }
+
+
+
+    rainpos = rainpos-rainspeed;
+
+glutPostRedisplay();
+glutTimerFunc(100, raineffect, 0);
+//cout<<lboatpos<<endl;
+
+}
+
+
+
+
+
+
+
+
 
 void updatesun(int value) {
 
@@ -119,6 +150,7 @@ void updatecloudone(int value) {
 glutPostRedisplay();
 glutTimerFunc(100, updatecloudone, 0);
 }
+
 
 void runleftboat(int value){
      if(lboatpos >=1.92)
@@ -627,6 +659,8 @@ if(mode==3){
     sunEvening(-0.2f,-0.17f,0.09f,242, 237, 182);
 }
 else if(mode!=2 && mode !=3){
+
+//cout<<sunposition<<endl;
    sun(-0.20f,0.86f,0.08f);
 
 }
@@ -4767,6 +4801,39 @@ void stormcall(int value){
 
 }
 
+
+
+
+void rain(){
+
+        glPushMatrix();
+        glTranslatef(0.0, 0.5f, 0.0f);
+        glPushMatrix();
+        glTranslatef(0.0, rainpos, 0.0f);
+        for(float i=1.0f; i>=-1.5f; i-=0.10f)
+        {
+            for(float j=-1.0f; j<=1.0f; j+=0.05f)
+            {
+                glLineWidth(1);
+                glBegin(GL_LINES);
+                glColor3ub(230,230,250);
+                glVertex2f(j,i);
+                glVertex2f(j,i+0.04);
+                glEnd();
+            }
+        }
+        glPopMatrix();
+        glPopMatrix();
+
+
+    rainpos-=0.05;
+    glFlush();
+
+}
+
+
+
+
 void MbridgeLight(){
         glLineWidth(4);
         glBegin(GL_LINES);
@@ -4853,7 +4920,7 @@ void MbridgeLight(){
 
 void SelectScene(){
 
-
+cout<<rainpos<<endl;
 
 
 if(scene==0)
@@ -5006,7 +5073,7 @@ cloud(0.4f,0.8f,0.06f);//right up
 cloud(0.5f,0.8f,0.08f);
 cloud(0.57f,0.8f,0.06f);
 glPopMatrix();
-
+rain();
 if(blink%4==0){
 
 glPushMatrix();
@@ -5019,6 +5086,7 @@ glPopMatrix();
 
 
 }
+
 
 
 
@@ -5058,10 +5126,11 @@ int main(int argc, char** argv)
     glutTimerFunc(100, runleftbirds, 0);
     glutTimerFunc(200, runthleftboat, 0);
     glutTimerFunc(100, runthrightboat, 0);
-glutTimerFunc(100, Busupdate, 0);
-glutTimerFunc(100, Heliupdate, 0);
-glutTimerFunc(100, stormcall, 0);
-glutMainLoop();
+    glutTimerFunc(100, Busupdate, 0);
+    glutTimerFunc(100, Heliupdate, 0);
+    glutTimerFunc(100, stormcall, 0);
+    glutTimerFunc(100, raineffect, 0);
+    glutMainLoop();
     return 0;
 }
 
